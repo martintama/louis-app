@@ -11,14 +11,14 @@ import com.inclutec.louis.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class EjercitacionFragment extends Fragment {
+public class ExerciseFragment extends Fragment {
 
-    public EjercitacionFragment() {
+    public ExerciseFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_ejercitacion, container, false);
+        return inflater.inflate(R.layout.fragment_exercise, container, false);
     }
 }

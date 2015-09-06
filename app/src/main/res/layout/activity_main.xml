@@ -19,21 +19,21 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/abecedario"
+        android:id="@+id/btnAbecedario"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/braille_button" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/aprestamiento"
+        android:id="@+id/btnAprestamiento"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/braille_button" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/evaluacionlibre"
+        android:id="@+id/btnLibre"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/braille_button" />
 

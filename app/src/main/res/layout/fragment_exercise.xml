@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.inclutec.louis.fragments.ExerciseFragment">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgTimer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:contentDescription="@string/timer"
+        android:src="@drawable/braille_button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="A"
+        android:id="@+id/txtCaracter"
+        android:layout_below="@+id/imgTimer"
+        android:layout_toLeftOf="@+id/imgTimer"
+        android:layout_toStartOf="@+id/imgTimer"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="108dp"
+        android:layout_alignBottom="@+id/imgBraille" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgBraille"
+        android:contentDescription="Celda braille"
+        android:src="@drawable/braille_button"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/btnSiguiente"
+        android:layout_toStartOf="@+id/btnSiguiente" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reenviar"
+        android:id="@+id/btnReenviar"
+        android:layout_marginBottom="96dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:id="@+id/btnSiguiente"
+        android:layout_alignTop="@+id/btnReenviar"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

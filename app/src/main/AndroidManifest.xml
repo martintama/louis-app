@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EjercitacionActivity"
+            android:name=".ExerciseActivity"
             android:label="@string/title_activity_ejercitacion" >
         </activity>
         <activity
@@ -31,7 +31,7 @@
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name=".EstadisticasActivity"
+            android:name=".StatsActivity"
             android:label="@string/title_activity_estadisticas" >
         </activity>
     </application>

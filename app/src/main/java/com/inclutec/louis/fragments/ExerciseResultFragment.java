@@ -3,7 +3,7 @@ package com.inclutec.louis.fragments;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +13,12 @@ import com.inclutec.louis.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link EjercitacionPreFragment.OnFragmentInteractionListener} interface
+ * {@link ExerciseResultFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link EjercitacionPreFragment#newInstance} factory method to
+ * Use the {@link ExerciseResultFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EjercitacionPreFragment extends Fragment {
+public class ExerciseResultFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,11 +36,11 @@ public class EjercitacionPreFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment EjercitacionPreFragment.
+     * @return A new instance of fragment ExerciseResultFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EjercitacionPreFragment newInstance(String param1, String param2) {
-        EjercitacionPreFragment fragment = new EjercitacionPreFragment();
+    public static ExerciseResultFragment newInstance(String param1, String param2) {
+        ExerciseResultFragment fragment = new ExerciseResultFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -48,7 +48,7 @@ public class EjercitacionPreFragment extends Fragment {
         return fragment;
     }
 
-    public EjercitacionPreFragment() {
+    public ExerciseResultFragment() {
         // Required empty public constructor
     }
 
@@ -65,7 +65,7 @@ public class EjercitacionPreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ejercitacion_pre, container, false);
+        return inflater.inflate(R.layout.fragment_exercise_result, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

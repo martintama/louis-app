@@ -16,7 +16,7 @@ import android.view.View;
  *
  * @see SystemUiHider
  */
-public class    SplashActivity extends Activity {
+public class SplashActivity extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.

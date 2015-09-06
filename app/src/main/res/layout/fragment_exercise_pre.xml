@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.inclutec.louis.fragments.EjercitacionPreFragment">
+    tools:context="com.inclutec.louis.fragments.ExercisePreFragment">
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -17,9 +17,16 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Breve descripción del módulo de enseñanza"
-        android:id="@+id/txtDescripcion"
+        android:id="@+id/txtDescription"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comenzar"
+        android:id="@+id/btnStart"
+        android:layout_gravity="center_horizontal" />
 
 
 </LinearLayout>

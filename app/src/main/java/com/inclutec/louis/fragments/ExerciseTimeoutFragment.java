@@ -3,7 +3,7 @@ package com.inclutec.louis.fragments;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +13,12 @@ import com.inclutec.louis.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link EjercitacionResultadoFragment.OnFragmentInteractionListener} interface
+ * {@link ExerciseTimeoutFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link EjercitacionResultadoFragment#newInstance} factory method to
+ * Use the {@link ExerciseTimeoutFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EjercitacionResultadoFragment extends Fragment {
+public class ExerciseTimeoutFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -36,11 +36,11 @@ public class EjercitacionResultadoFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment EjercitacionResultadoFragment.
+     * @return A new instance of fragment ExerciseTimeoutFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EjercitacionResultadoFragment newInstance(String param1, String param2) {
-        EjercitacionResultadoFragment fragment = new EjercitacionResultadoFragment();
+    public static ExerciseTimeoutFragment newInstance(String param1, String param2) {
+        ExerciseTimeoutFragment fragment = new ExerciseTimeoutFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -48,7 +48,7 @@ public class EjercitacionResultadoFragment extends Fragment {
         return fragment;
     }
 
-    public EjercitacionResultadoFragment() {
+    public ExerciseTimeoutFragment() {
         // Required empty public constructor
     }
 
@@ -65,7 +65,7 @@ public class EjercitacionResultadoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ejercitacion_resultado, container, false);
+        return inflater.inflate(R.layout.fragment_exercise_timeout, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

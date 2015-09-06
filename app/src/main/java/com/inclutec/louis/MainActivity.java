@@ -1,9 +1,13 @@
 package com.inclutec.louis;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.inclutec.louis.util.ExerciseType;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +15,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View.OnClickListener activityButtonListener = new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btnAbecedario:
+                        openPracticeActivity(ExerciseType.ABECEDARIO);
+                        break;
+                    case R.id.btnAprestamiento:
+                        openPracticeActivity(ExerciseType.APRESTAMIENTO);
+                        break;
+                    case R.id.btnLibre:
+                        openPracticeActivity(ExerciseType.LIBRE);
+                        break;
+
+                }
+            }
+        };
+
+        findViewById(R.id.btnAbecedario).setOnClickListener(activityButtonListener);
+        findViewById(R.id.btnAprestamiento).setOnClickListener(activityButtonListener);
+        findViewById(R.id.btnLibre).setOnClickListener(activityButtonListener);
     }
 
     @Override
@@ -34,4 +61,11 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void openPracticeActivity(ExerciseType mode){
+        Intent intentSettings = new Intent(this, ExerciseActivity.class);
+        intentSettings.putExtra("type", mode);
+        this.startActivity(intentSettings);
+    }
+
 }
