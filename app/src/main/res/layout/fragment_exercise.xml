@@ -38,14 +38,14 @@
         android:contentDescription="Celda braille"
         android:src="@drawable/braille_button"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/btnSiguiente"
-        android:layout_toStartOf="@+id/btnSiguiente" />
+        android:layout_toLeftOf="@+id/btnNext"
+        android:layout_toStartOf="@+id/btnNext" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Reenviar"
-        android:id="@+id/btnReenviar"
+        android:id="@+id/btnResend"
         android:layout_marginBottom="96dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
@@ -55,8 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Siguiente"
-        android:id="@+id/btnSiguiente"
-        android:layout_alignTop="@+id/btnReenviar"
+        android:id="@+id/btnNext"
+        android:layout_alignTop="@+id/btnResend"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
