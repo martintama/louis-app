@@ -4,6 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.inclutec.louis.fragments.ExerciseFragment;
 import com.inclutec.louis.fragments.ExercisePreFragment;
@@ -72,4 +75,5 @@ public class ExerciseActivity extends AppCompatActivity implements
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.exercise_fragment_container, nextFragment).commit();
     }
+
 }

@@ -17,4 +17,13 @@
     <string name="abecedario_description">Breve descripción del módulo ABECEDARIO</string>
     <string name="free_description">Breve descripción del módulo Libre</string>
     <string name="aprestamiento_description">Breve descripción del módulo APRESTAMIENTO</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+    <string name="logo">Louis</string>
+
+    <string-array name="drawer_options">
+        <item>Alumno</item>
+        <item>Estadisticas</item>
+        <item>Configuracion</item>
+    </string-array>
 </resources>

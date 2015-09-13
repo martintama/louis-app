@@ -1,20 +1,39 @@
 package com.inclutec.louis;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.inclutec.louis.adapters.DrawerListAdapter;
 import com.inclutec.louis.exercises.ExerciseType;
+import com.inclutec.louis.extra.DrawerItem;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity{
+
+    private android.support.v7.widget.Toolbar toolbar;
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private String[] drawerListItemsTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        loadNavDrawer();
 
         View.OnClickListener activityButtonListener = new View.OnClickListener() {
 
@@ -38,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnAbecedario).setOnClickListener(activityButtonListener);
         findViewById(R.id.btnAprestamiento).setOnClickListener(activityButtonListener);
         findViewById(R.id.btnLibre).setOnClickListener(activityButtonListener);
+
     }
 
     @Override
@@ -47,25 +67,56 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private void openPracticeActivity(ExerciseType mode){
         Intent intentSettings = new Intent(this, ExerciseActivity.class);
         intentSettings.putExtra("type", mode);
         this.startActivity(intentSettings);
     }
+
+    private void loadNavDrawer() {
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
+        toolbar.setTitle("");
+        ;//que no diga nada por ahora
+
+        setSupportActionBar(toolbar);
+
+        //add the header to the drawer
+        View header = getLayoutInflater().inflate(R.layout.drawer_header, null);
+
+        mDrawerList.addHeaderView(header);
+
+        //add the options
+        // Get the titles and construct the items with the icons
+        drawerListItemsTag = getResources().getStringArray(R.array.drawer_options);
+
+        ArrayList<DrawerItem> items = new ArrayList<>();
+        items.add(new DrawerItem(drawerListItemsTag[0], R.drawable.ic_account_circle_white_36dp));
+        items.add(new DrawerItem(drawerListItemsTag[1], R.drawable.ic_assessment_white_36dp));
+        items.add(new DrawerItem(drawerListItemsTag[2], R.drawable.ic_settings_white_36dp));
+
+        mDrawerList.setAdapter(new DrawerListAdapter(this, items));
+
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            //substract one for the header
+            position = position - 1;
+
+            Toast.makeText(getApplicationContext(), "Pulsado " + drawerListItemsTag[position] , Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
