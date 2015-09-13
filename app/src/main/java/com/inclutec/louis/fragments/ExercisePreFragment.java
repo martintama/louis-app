@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.inclutec.louis.R;
-import com.inclutec.louis.util.ExerciseType;
+import com.inclutec.louis.exercises.ExerciseType;
 
 public class ExercisePreFragment extends Fragment {
 

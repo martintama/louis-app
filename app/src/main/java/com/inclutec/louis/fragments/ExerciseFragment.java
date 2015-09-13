@@ -1,29 +1,64 @@
 package com.inclutec.louis.fragments;
 
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inclutec.louis.R;
-import com.inclutec.louis.lib.BrailleCellHandler;
-import com.inclutec.louis.util.ExerciseType;
+import com.inclutec.louis.exercises.ExerciseType;
+import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
+import com.inclutec.louis.interfaces.BrailleExercise;
+import com.inclutec.louis.lib.BrailleCellImageHandler;
+import com.inclutec.louis.lib.BrailleManager;
+import com.inclutec.louis.lib.LouisDeviceConnector;
+import com.inclutec.louis.mocks.LouisDeviceMock;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class ExerciseFragment extends Fragment {
 
-     BrailleCellHandler brailleCellHandler;
+    private BrailleCellImageHandler brailleCellImageHandler;
+    private BrailleManager brailleManager;
+    private BrailleExercise exercise;
+    private ExerciseType selectedType;
+    private String lastChar;
+
+    private View inflatedView;
+
 
     public ExerciseFragment() {
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        selectedType = (ExerciseType) bundle.get("type");
+
+        brailleCellImageHandler = new BrailleCellImageHandler(getActivity());
+        brailleManager = new BrailleManager(getActivity());
+
+        brailleManager.setExerciseType(selectedType);
+
+        exercise = brailleManager.getBrailleExercise();
+
+        exercise.loadProgress(1, 1);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.fragment_exercise, container, false);
+        inflatedView = inflater.inflate(R.layout.fragment_exercise, container, false);
 
         setListeners(inflatedView);
 
@@ -38,8 +73,21 @@ public class ExerciseFragment extends Fragment {
                 switch (v.getId()){
                     case R.id.btnNext:
 
+                        String nextChar = exercise.getNextChar();
+
+                        setBrailleCharImage(nextChar);
+                        setCharText(nextChar);
+
+                        lastChar = nextChar;
+
                         break;
                     case R.id.btnResend:
+
+                        //TODO find a way to make this configurable at startup
+                        LouisDeviceMock mock = new LouisDeviceMock();
+                        mock.setContext(getActivity());
+                        mock.write(lastChar);
+
 
                         break;
 
@@ -50,5 +98,22 @@ public class ExerciseFragment extends Fragment {
         container.findViewById(R.id.btnNext).setOnClickListener(buttonClickListener);
         container.findViewById(R.id.btnResend).setOnClickListener(buttonClickListener);
 
+    }
+
+    public void initializeExercise(){
+
+    }
+
+    private void setBrailleCharImage(String character){
+        ImageView image = (ImageView) inflatedView.findViewById(R.id.imgBraille);
+
+        Drawable cellImage = brailleCellImageHandler.getCellPicture(character);
+        image.setImageDrawable(cellImage);
+
+    }
+
+    private void setCharText(String character){
+        TextView text = (TextView) inflatedView.findViewById(R.id.txtCaracter);
+        text.setText(character);
     }
 }

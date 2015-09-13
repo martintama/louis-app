@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.inclutec.louis.util.ExerciseType;
+import com.inclutec.louis.exercises.ExerciseType;
 
 public class MainActivity extends AppCompatActivity {
 

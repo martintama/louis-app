@@ -1,4 +1,4 @@
-package com.inclutec.louis.util;
+package com.inclutec.louis.exercises;
 
 /**
  * Created by martin on 9/6/15.

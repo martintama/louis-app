@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.inclutec.louis.fragments.ExerciseFragment;
 import com.inclutec.louis.fragments.ExercisePreFragment;
-import com.inclutec.louis.util.ExerciseType;
+import com.inclutec.louis.exercises.ExerciseType;
 
 public class ExerciseActivity extends AppCompatActivity implements
         ExercisePreFragment.OnFragmentInteractionListener {
@@ -58,7 +58,9 @@ public class ExerciseActivity extends AppCompatActivity implements
     public void onExerciseStart(ExerciseType type) {
         // Create a new Fragment to be placed in the activity layout
         ExerciseFragment nextFragment = new ExerciseFragment();
+
         Bundle savedInstanceState = new Bundle();
+
         savedInstanceState.putSerializable("selectedType", type);
         nextFragment.setArguments(savedInstanceState);
 
