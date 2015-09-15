@@ -44,7 +44,4 @@ public class BrailleManager {
         return brailleExercise;
     }
 
-    public void setBrailleExercise(BrailleExercise brailleExercise) {
-        this.brailleExercise = brailleExercise;
-    }
 }

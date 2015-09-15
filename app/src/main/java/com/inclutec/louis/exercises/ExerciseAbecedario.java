@@ -1,5 +1,6 @@
 package com.inclutec.louis.exercises;
 
+import com.inclutec.louis.R;
 import com.inclutec.louis.interfaces.BrailleExercise;
 
 /**
@@ -40,6 +41,14 @@ public class ExerciseAbecedario implements BrailleExercise {
         }
 
         return nextChar;
+    }
+
+    public static String getExerciseTitle() {
+        return "Abecedario";
+    }
+
+    public static String getExerciseDescription(){
+        return "Breve descripcion del modulo de ABECEDARIO";
     }
 
     public int getLevel() {

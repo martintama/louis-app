@@ -20,7 +20,7 @@ public class ExerciseAprestamiento implements BrailleExercise {
         String nextChar = "";
         this.studiedLevelProgress = this.studiedLevelProgress + 1;
 
-        if (this.studiedLevelProgress < this.MAX_LEVEL_PROGRESS){
+        if (this.studiedLevelProgress <= this.MAX_LEVEL_PROGRESS){
 
             switch (this.studiedLevelProgress){
                 case 1:
@@ -70,6 +70,14 @@ public class ExerciseAprestamiento implements BrailleExercise {
         }
 
         return nextChar;
+    }
+
+    public static String getExerciseTitle() {
+        return "Aprestamiento";
+    }
+
+    public static String getExerciseDescription(){
+        return "Breve descripcion del modulo de APRESTAMIENTO";
     }
 
     public int getStudiedLevelProgress() {

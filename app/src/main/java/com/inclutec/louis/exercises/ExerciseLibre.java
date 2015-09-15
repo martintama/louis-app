@@ -34,6 +34,14 @@ public class ExerciseLibre implements BrailleExercise {
 
     }
 
+    public static String getExerciseTitle() {
+        return "Libre";
+    }
+
+    public static String getExerciseDescription(){
+        return "Breve descripcion del modulo de LIBRE";
+    }
+
     //In the free mode, one cannot load progress as it's "free"
     @Override
     public void loadProgress(int level, int studiedLevelProgress) {

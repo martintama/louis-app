@@ -1,10 +1,103 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.inclutec.louis.fragments.ExerciseResultFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Nivel N"
+        android:id="@+id/txtLevel"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/ic_schedule_white_48dp"
+        android:layout_below="@+id/txtName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/ic_person_white_48dp"
+        android:layout_below="@+id/txtLevel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="62dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nombre usuario"
+        android:id="@+id/txtName"
+        android:layout_alignBottom="@+id/imageView2"
+        android:layout_alignLeft="@+id/txtTime"
+        android:layout_alignStart="@+id/txtTime" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Tiempo"
+        android:id="@+id/txtTime"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignLeft="@+id/txtThumbsUpCounter"
+        android:layout_alignStart="@+id/txtThumbsUpCounter" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar"
+        android:id="@+id/btnFinish"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgThumbsUp"
+        android:src="@drawable/ic_thumb_up_white_36dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0"
+        android:id="@+id/txtThumbsUpCounter"
+        android:layout_alignBottom="@+id/imgThumbsUp"
+        android:layout_toRightOf="@+id/txtLevel"
+        android:layout_toEndOf="@+id/txtLevel" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgThumbsDown"
+        android:src="@drawable/ic_thumb_down_white_36dp"
+        android:layout_below="@+id/txtThumbsUpCounter"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="45dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0"
+        android:id="@+id/txtThumbsDownCounter"
+        android:layout_alignBottom="@+id/imgThumbsDown"
+        android:layout_alignLeft="@+id/txtThumbsUpCounter"
+        android:layout_alignStart="@+id/txtThumbsUpCounter" />
+</RelativeLayout>

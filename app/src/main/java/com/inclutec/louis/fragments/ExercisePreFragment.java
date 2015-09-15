@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.inclutec.louis.R;
+import com.inclutec.louis.exercises.ExerciseAbecedario;
+import com.inclutec.louis.exercises.ExerciseAprestamiento;
+import com.inclutec.louis.exercises.ExerciseLibre;
 import com.inclutec.louis.exercises.ExerciseType;
 
 public class ExercisePreFragment extends Fragment {
@@ -46,6 +49,9 @@ public class ExercisePreFragment extends Fragment {
             }
         });
 
+        if (mListener != null){
+            mListener.onExerciseLoad(selectedType);
+        }
 
         loadExerciseDescription(inflatedView);
 
@@ -72,7 +78,10 @@ public class ExercisePreFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onExerciseStart(ExerciseType type);
+
+        void onExerciseLoad(ExerciseType type);
+
+        void onExerciseStart(ExerciseType type);
     }
 
     public void loadExerciseDescription(View inflatedView){
@@ -80,13 +89,13 @@ public class ExercisePreFragment extends Fragment {
         TextView description = (TextView) inflatedView.findViewById(R.id.txtDescription);
         switch(selectedType){
             case ABECEDARIO:
-                description.setText(R.string.abecedario_description);
+                description.setText(ExerciseAbecedario.getExerciseDescription());
                 break;
             case APRESTAMIENTO:
-                description.setText(R.string.aprestamiento_description);
+                description.setText(ExerciseAprestamiento.getExerciseDescription());
                 break;
             case LIBRE:
-                description.setText(R.string.free_description);
+                description.setText(ExerciseLibre.getExerciseDescription());
                 break;
         }
     }

@@ -78,8 +78,7 @@ public class MainActivity extends AppCompatActivity{
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle("");
-        ;//que no diga nada por ahora
+        //toolbar.setTitle("");  ;//que no diga nada por ahora
 
         setSupportActionBar(toolbar);
 
@@ -111,10 +110,27 @@ public class MainActivity extends AppCompatActivity{
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            //substract one for the header
-            position = position - 1;
+            Intent intentSettings = null;
 
-            Toast.makeText(getApplicationContext(), "Pulsado " + drawerListItemsTag[position] , Toast.LENGTH_SHORT).show();
+            //The zero is the header
+            switch(position){
+                case 1: //Alumno
+                    intentSettings = new Intent(getApplication(), ProfileActivity.class);
+
+                    startActivity(intentSettings);
+                    break;
+                case 2: //Estadisticas
+                    intentSettings = new Intent(getApplication(), StatsActivity.class);
+
+                    startActivity(intentSettings);
+                    break;
+                case 3: //Configuracion
+                    intentSettings = new Intent(getApplication(), SettingsActivity.class);
+
+                    startActivity(intentSettings);
+                    break;
+            }
+
         }
     }
 

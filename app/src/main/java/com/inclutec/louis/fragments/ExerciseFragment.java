@@ -1,5 +1,6 @@
 package com.inclutec.louis.fragments;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -23,6 +24,8 @@ import com.inclutec.louis.mocks.LouisDeviceMock;
  * A placeholder fragment containing a simple view.
  */
 public class ExerciseFragment extends Fragment {
+
+    private OnFragmentInteractionListener mListener;
 
     private BrailleCellImageHandler brailleCellImageHandler;
     private BrailleManager brailleManager;
@@ -51,7 +54,8 @@ public class ExerciseFragment extends Fragment {
 
         exercise = brailleManager.getBrailleExercise();
 
-        exercise.loadProgress(1, 1);
+
+
 
     }
 
@@ -62,7 +66,20 @@ public class ExerciseFragment extends Fragment {
 
         setListeners(inflatedView);
 
+        this.initializeExercise();
+
         return inflatedView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnFragmentInteractionListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     public void setListeners(View container){
@@ -73,13 +90,7 @@ public class ExerciseFragment extends Fragment {
                 switch (v.getId()){
                     case R.id.btnNext:
 
-                        String nextChar = exercise.getNextChar();
-
-                        setBrailleCharImage(nextChar);
-                        setCharText(nextChar);
-
-                        lastChar = nextChar;
-
+                        loadNextChar();
                         break;
                     case R.id.btnResend:
 
@@ -101,9 +112,26 @@ public class ExerciseFragment extends Fragment {
     }
 
     public void initializeExercise(){
+        exercise.loadProgress(1, 1);
 
+        this.loadNextChar();
     }
 
+    private void loadNextChar(){
+        String nextChar = exercise.getNextChar();
+
+        //If we have reached the finish
+        if (nextChar == "\n"){
+            if (mListener != null){
+                mListener.onExerciseFinish(selectedType);
+            }
+        }else {
+            setBrailleCharImage(nextChar);
+            setCharText(nextChar);
+
+            lastChar = nextChar;
+        }
+    }
     private void setBrailleCharImage(String character){
         ImageView image = (ImageView) inflatedView.findViewById(R.id.imgBraille);
 
@@ -115,5 +143,11 @@ public class ExerciseFragment extends Fragment {
     private void setCharText(String character){
         TextView text = (TextView) inflatedView.findViewById(R.id.txtCaracter);
         text.setText(character);
+    }
+
+    public interface OnFragmentInteractionListener {
+
+        // TODO: Update argument type and name
+        void onExerciseFinish(ExerciseType type);
     }
 }

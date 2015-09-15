@@ -1,19 +1,22 @@
 package com.inclutec.louis;
 
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
+import com.inclutec.louis.exercises.ExerciseAbecedario;
+import com.inclutec.louis.exercises.ExerciseAprestamiento;
+import com.inclutec.louis.exercises.ExerciseLibre;
+import com.inclutec.louis.exercises.ExerciseType;
 import com.inclutec.louis.fragments.ExerciseFragment;
 import com.inclutec.louis.fragments.ExercisePreFragment;
-import com.inclutec.louis.exercises.ExerciseType;
+import com.inclutec.louis.fragments.ExerciseResultFragment;
 
 public class ExerciseActivity extends AppCompatActivity implements
-        ExercisePreFragment.OnFragmentInteractionListener {
+        ExercisePreFragment.OnFragmentInteractionListener,
+        ExerciseFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,21 @@ public class ExerciseActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onExerciseLoad(ExerciseType type) {
+        switch(type){
+            case ABECEDARIO:
+                setTitle(ExerciseAbecedario.getExerciseTitle());
+                break;
+            case APRESTAMIENTO:
+                setTitle(ExerciseAprestamiento.getExerciseTitle());
+                break;
+            case LIBRE:
+                setTitle(ExerciseLibre.getExerciseTitle());
+                break;
+        }
+    }
+
+    @Override
     public void onExerciseStart(ExerciseType type) {
         // Create a new Fragment to be placed in the activity layout
         ExerciseFragment nextFragment = new ExerciseFragment();
@@ -74,6 +92,15 @@ public class ExerciseActivity extends AppCompatActivity implements
         // Add the fragment to the 'fragment_container' FrameLayout
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.exercise_fragment_container, nextFragment).commit();
+    }
+
+    @Override
+    public void onExerciseFinish(ExerciseType type) {
+        ExerciseResultFragment nextFragment = new ExerciseResultFragment();
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.exercise_fragment_container, nextFragment).commit();
+
     }
 
 }
