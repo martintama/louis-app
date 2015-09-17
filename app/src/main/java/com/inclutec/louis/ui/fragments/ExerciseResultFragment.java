@@ -1,15 +1,11 @@
-package com.inclutec.louis.fragments;
+package com.inclutec.louis.ui.fragments;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.inclutec.louis.ExerciseActivity;
 import com.inclutec.louis.R;
 
 public class ExerciseResultFragment extends Fragment {

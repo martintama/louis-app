@@ -2,13 +2,13 @@
 
     <!-- These settings headers are only used on tablets. -->
 
-    <header android:fragment="com.inclutec.louis.SettingsActivity$GeneralPreferenceFragment"
+    <header android:fragment="com.inclutec.louis.ui.SettingsActivity$GeneralPreferenceFragment"
         android:title="@string/pref_header_general" />
 
-    <header android:fragment="com.inclutec.louis.SettingsActivity$NotificationPreferenceFragment"
+    <header android:fragment="com.inclutec.louis.ui.SettingsActivity$NotificationPreferenceFragment"
         android:title="@string/pref_header_notifications" />
 
-    <header android:fragment="com.inclutec.louis.SettingsActivity$DataSyncPreferenceFragment"
+    <header android:fragment="com.inclutec.louis.ui.SettingsActivity$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>

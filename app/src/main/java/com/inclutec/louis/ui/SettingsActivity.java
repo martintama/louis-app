@@ -1,4 +1,4 @@
-package com.inclutec.louis;
+package com.inclutec.louis.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
+
+import com.inclutec.louis.R;
 
 import java.util.List;
 

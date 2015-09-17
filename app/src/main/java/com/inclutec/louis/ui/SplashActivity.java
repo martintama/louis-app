@@ -1,5 +1,6 @@
-package com.inclutec.louis;
+package com.inclutec.louis.ui;
 
+import com.inclutec.louis.R;
 import com.inclutec.louis.util.SystemUiHider;
 
 import android.annotation.TargetApi;

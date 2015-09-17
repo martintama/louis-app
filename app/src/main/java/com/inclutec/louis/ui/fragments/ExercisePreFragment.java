@@ -1,4 +1,4 @@
-package com.inclutec.louis.fragments;
+package com.inclutec.louis.ui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;

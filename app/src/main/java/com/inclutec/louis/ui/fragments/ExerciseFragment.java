@@ -1,4 +1,4 @@
-package com.inclutec.louis.fragments;
+package com.inclutec.louis.ui.fragments;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -9,15 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.inclutec.louis.R;
 import com.inclutec.louis.exercises.ExerciseType;
-import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
 import com.inclutec.louis.interfaces.BrailleExercise;
 import com.inclutec.louis.lib.BrailleCellImageHandler;
 import com.inclutec.louis.lib.BrailleManager;
-import com.inclutec.louis.lib.LouisDeviceConnector;
 import com.inclutec.louis.mocks.LouisDeviceMock;
 
 /**

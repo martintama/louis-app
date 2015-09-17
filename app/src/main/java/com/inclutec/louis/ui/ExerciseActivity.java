@@ -1,18 +1,18 @@
-package com.inclutec.louis;
+package com.inclutec.louis.ui;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.inclutec.louis.R;
 import com.inclutec.louis.exercises.ExerciseAbecedario;
 import com.inclutec.louis.exercises.ExerciseAprestamiento;
 import com.inclutec.louis.exercises.ExerciseLibre;
 import com.inclutec.louis.exercises.ExerciseType;
-import com.inclutec.louis.fragments.ExerciseFragment;
-import com.inclutec.louis.fragments.ExercisePreFragment;
-import com.inclutec.louis.fragments.ExerciseResultFragment;
+import com.inclutec.louis.ui.fragments.ExerciseFragment;
+import com.inclutec.louis.ui.fragments.ExercisePreFragment;
+import com.inclutec.louis.ui.fragments.ExerciseResultFragment;
 
 public class ExerciseActivity extends AppCompatActivity implements
         ExercisePreFragment.OnFragmentInteractionListener,
