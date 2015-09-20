@@ -32,6 +32,10 @@ public class ExerciseFragment extends Fragment {
 
     private View inflatedView;
 
+    private int counterHit = 0;
+    private int counterMiss = 0;
+    private int seconds = 0;
+
 
     public ExerciseFragment() {
 
@@ -85,9 +89,11 @@ public class ExerciseFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    case R.id.btnNext:
+                    case R.id.btnFinish:
 
-                        loadNextChar();
+                        if (mListener != null){
+                            mListener.onExerciseFinish(selectedType, counterHit, counterMiss, seconds);
+                        }
                         break;
                     case R.id.btnResend:
 
@@ -95,16 +101,25 @@ public class ExerciseFragment extends Fragment {
                         LouisDeviceMock mock = new LouisDeviceMock();
                         mock.setContext(getActivity());
                         mock.write(lastChar);
+                        break;
+                    case R.id.btnThumbsUp:
+                        counterHit += 1;
+                        loadNextChar();
+                        break;
 
-
+                    case R.id.btnThumbsDown:
+                        counterMiss += 1;
+                        loadNextChar();
                         break;
 
                 }
             }
         };
 
-        container.findViewById(R.id.btnNext).setOnClickListener(buttonClickListener);
+        container.findViewById(R.id.btnFinish).setOnClickListener(buttonClickListener);
         container.findViewById(R.id.btnResend).setOnClickListener(buttonClickListener);
+        container.findViewById(R.id.btnThumbsUp).setOnClickListener(buttonClickListener);
+        container.findViewById(R.id.btnThumbsDown).setOnClickListener(buttonClickListener);
 
     }
 
@@ -120,7 +135,7 @@ public class ExerciseFragment extends Fragment {
         //If we have reached the finish
         if (nextChar == "\n"){
             if (mListener != null){
-                mListener.onExerciseFinish(selectedType);
+                mListener.onExerciseFinish(selectedType, counterHit, counterMiss, seconds);
             }
         }else {
             setBrailleCharImage(nextChar);
@@ -145,6 +160,6 @@ public class ExerciseFragment extends Fragment {
     public interface OnFragmentInteractionListener {
 
         // TODO: Update argument type and name
-        void onExerciseFinish(ExerciseType type);
+        void onExerciseFinish(ExerciseType type, int counterHit, int counterMiss, int seconds);
     }
 }

@@ -18,6 +18,9 @@ public class ExerciseActivity extends AppCompatActivity implements
         ExercisePreFragment.OnFragmentInteractionListener,
         ExerciseFragment.OnFragmentInteractionListener{
 
+    private String userName = "";
+    private int level = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,8 +98,15 @@ public class ExerciseActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onExerciseFinish(ExerciseType type) {
+    public void onExerciseFinish(ExerciseType type, int counterHit, int counterMiss, int seconds) {
         ExerciseResultFragment nextFragment = new ExerciseResultFragment();
+        Bundle args = new Bundle();
+        args.putInt("counterHit", counterHit);
+        args.putInt("counterMiss", counterMiss);
+        args.putInt("seconds", seconds);
+        args.putString("userName", userName);
+        args.putInt("level", level);
+        nextFragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.exercise_fragment_container, nextFragment).commit();

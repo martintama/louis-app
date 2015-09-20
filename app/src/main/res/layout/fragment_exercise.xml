@@ -51,17 +51,37 @@
         android:text="Reenviar"
         android:id="@+id/btnResend"
 
-        android:layout_below="@+id/linearLayoutBraille"
+        android:layout_marginBottom="63dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Siguiente"
-        android:id="@+id/btnNext"
-        android:layout_below="@+id/linearLayoutBraille"
+        android:text="Finalizar"
+        android:id="@+id/btnFinish"
         android:layout_alignTop="@+id/btnResend"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/linearLayoutBraille"
+        android:layout_alignEnd="@+id/linearLayoutBraille"
+        android:longClickable="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnThumbsDown"
+        android:src="@drawable/ic_thumb_down_white_48dp"
+        android:layout_alignTop="@+id/btnThumbsUp"
+        android:layout_toRightOf="@+id/btnResend"
+        android:layout_toEndOf="@+id/btnResend" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnThumbsUp"
+        android:src="@drawable/ic_thumb_up_white_48dp"
+        android:layout_below="@+id/linearLayoutBraille"
+        android:layout_toLeftOf="@+id/btnFinish"
+        android:layout_toStartOf="@+id/btnFinish"
+        android:layout_marginTop="28dp" />
 </RelativeLayout>
