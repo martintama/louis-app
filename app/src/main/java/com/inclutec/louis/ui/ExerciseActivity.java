@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
 import com.inclutec.louis.exercises.ExerciseAbecedario;
 import com.inclutec.louis.exercises.ExerciseAprestamiento;
@@ -14,7 +15,7 @@ import com.inclutec.louis.ui.fragments.ExerciseFragment;
 import com.inclutec.louis.ui.fragments.ExercisePreFragment;
 import com.inclutec.louis.ui.fragments.ExerciseResultFragment;
 
-public class ExerciseActivity extends AppCompatActivity implements
+public class ExerciseActivity extends LouisActivity implements
         ExercisePreFragment.OnFragmentInteractionListener,
         ExerciseFragment.OnFragmentInteractionListener{
 

@@ -88,6 +88,9 @@ public class SplashActivity extends Activity {
 
     }
 
+    public void initializeAppData(){
+
+    }
 
 
 }

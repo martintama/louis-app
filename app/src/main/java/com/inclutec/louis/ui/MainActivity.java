@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
 import com.inclutec.louis.adapters.DrawerListAdapter;
 import com.inclutec.louis.exercises.ExerciseType;
@@ -17,7 +18,7 @@ import com.inclutec.louis.extra.DrawerItem;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends LouisActivity{
 
     private android.support.v7.widget.Toolbar toolbar;
 

@@ -27,4 +27,8 @@
         <item>Configuracion</item>
     </string-array>
     <string name="title_activity_profile">ProfileActivity</string>
+    <string name="pref_timeout">Tiempo máximo de espera</string>
+    <string name="preference_sounds_title">Sonidos</string>
+    <string name="preference_sounds">sounds</string>
+    <string name="preference_answer_timeout">Tiempo máximo de espera</string>
 </resources>

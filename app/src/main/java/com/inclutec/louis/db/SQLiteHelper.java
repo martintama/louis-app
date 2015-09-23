@@ -34,6 +34,7 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, User.class);
+            TableUtils.createTable(connectionSource, Statistic.class);
 
             this.initializeTables();
         } catch (SQLException e) {

@@ -5,9 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
 
-public class StatsActivity extends AppCompatActivity {
+public class StatsActivity extends LouisActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
