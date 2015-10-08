@@ -31,4 +31,6 @@
     <string name="preference_sounds_title">Sonidos</string>
     <string name="preference_sounds">sounds</string>
     <string name="preference_answer_timeout">Tiempo máximo de espera</string>
+    <string name="action_add_user">Agregar</string>
+    <string name="accept">Aceptar</string>
 </resources>

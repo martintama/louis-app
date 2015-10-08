@@ -77,7 +77,7 @@ public class MainActivity extends LouisActivity{
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        //toolbar.setTitle("");  ;//que no diga nada por ahora
+        toolbar.setTitle("");  ;//que no diga nada por ahora
 
         setSupportActionBar(toolbar);
 

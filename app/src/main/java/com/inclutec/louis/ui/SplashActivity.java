@@ -9,6 +9,7 @@ import com.j256.ormlite.dao.Dao;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -48,14 +49,52 @@ public class SplashActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         setContentView(R.layout.activity_splash);
 
-        goToMainActivity();
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                checkDeviceConnection();
+
+            }
+        }, 2000);
 
 
+    }
 
+    private void checkDeviceConnection() {
+        boolean connected = false;
+
+        if (connected) {
+
+            goToMainActivity();
+        }
+        else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("No se detectó el interprete Louis conectado a tu dispositivo.")
+                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            goToMainActivity();
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            finish();
+                            finish();
+                        }
+                    });
+            // Create the AlertDialog object and return it
+
+            builder.create().show();
+
+        }
     }
 
     @Override
@@ -76,15 +115,9 @@ public class SplashActivity extends Activity {
 
     public void goToMainActivity() {
 
-        Handler handler = new Handler();
-
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent intentMain = new Intent(SplashActivity.this, MainActivity.class);
-                intentMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(intentMain);
-            }
-        }, 2000);
+        Intent intentMain = new Intent(SplashActivity.this, MainActivity.class);
+        intentMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startActivity(intentMain);
 
     }
 

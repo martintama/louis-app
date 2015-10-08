@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.inclutec.louis.db.SQLiteHelper;
+import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 /**
@@ -15,6 +16,7 @@ public class LouisApplication extends Application {
 
     private String CLASSNAME = "LouisApplicationClass";
     private SQLiteHelper dbHelper;
+    private ArduinoDeviceConnector deviceConnector;
 
     public void setDbHelper(SQLiteHelper helper){
         this.dbHelper = helper;
@@ -63,6 +65,13 @@ public class LouisApplication extends Application {
 
         this.setDbHelper(OpenHelperManager.getHelper(this, SQLiteHelper.class));
 
+    }
 
+    public ArduinoDeviceConnector getDeviceConnector() {
+        return deviceConnector;
+    }
+
+    public void setDeviceConnector(ArduinoDeviceConnector deviceConnector) {
+        this.deviceConnector = deviceConnector;
     }
 }
