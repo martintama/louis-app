@@ -91,9 +91,9 @@ public class MainActivity extends LouisActivity{
         drawerListItemsTag = getResources().getStringArray(R.array.drawer_options);
 
         ArrayList<DrawerItem> items = new ArrayList<>();
-        items.add(new DrawerItem(drawerListItemsTag[0], R.drawable.ic_account_circle_white_36dp));
-        items.add(new DrawerItem(drawerListItemsTag[1], R.drawable.ic_assessment_white_36dp));
-        items.add(new DrawerItem(drawerListItemsTag[2], R.drawable.ic_settings_white_36dp));
+        items.add(new DrawerItem(drawerListItemsTag[0], R.drawable.ic_account_circle_black_48dp));
+        items.add(new DrawerItem(drawerListItemsTag[1], R.drawable.ic_assessment_black_48dp));
+        items.add(new DrawerItem(drawerListItemsTag[2], R.drawable.ic_settings_black_48dp));
 
         mDrawerList.setAdapter(new DrawerListAdapter(this, items));
 
@@ -101,7 +101,7 @@ public class MainActivity extends LouisActivity{
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
 

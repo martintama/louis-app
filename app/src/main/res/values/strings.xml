@@ -5,13 +5,14 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_ejercitacion">Ejercitacion</string>
 
-    <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_splash">Splash</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_estadisticas">EstadisticasActivity</string>
+    <string name="title_activity_estadisticas">Estadisticas</string>
+    <string name="title_activity_profile">Usuarios</string>
     <string name="timer">Timer</string>
 
     <string name="abecedario_description">Breve descripción del módulo ABECEDARIO</string>
@@ -26,7 +27,6 @@
         <item>Estadisticas</item>
         <item>Configuracion</item>
     </string-array>
-    <string name="title_activity_profile">ProfileActivity</string>
     <string name="pref_timeout">Tiempo máximo de espera</string>
     <string name="preference_sounds_title">Sonidos</string>
     <string name="preference_sounds">sounds</string>

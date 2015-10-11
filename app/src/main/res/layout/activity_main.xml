@@ -16,6 +16,7 @@
             layout="@layout/toolbar_main"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_marginBottom="8dp"
             />
 
         <TextView
@@ -26,14 +27,21 @@
             android:id="@+id/textView"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_marginBottom="8dp"
+            />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="109dp"
             android:id="@+id/btnAbecedario"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/braille_button" />
+            android:src="@drawable/placeholder"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,15 +50,19 @@
             android:id="@+id/lblAbecedario"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
         />
 
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="109dp"
             android:id="@+id/btnAprestamiento"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/braille_button" />
+            android:src="@drawable/placeholder"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,14 +71,18 @@
             android:id="@+id/lblAprestamiento"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="170dp"
+            android:layout_height="109dp"
             android:id="@+id/btnLibre"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/braille_button" />
+            android:src="@drawable/placeholder"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,6 +91,8 @@
             android:id="@+id/lblLibre"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             />
     </LinearLayout>
 
@@ -84,7 +102,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
-        android:background="@color/material_blue_grey_800"
+        android:background="@color/navDrawerBackground"
+        android:layout_marginLeft="16dp"
         />
 
 </android.support.v4.widget.DrawerLayout>

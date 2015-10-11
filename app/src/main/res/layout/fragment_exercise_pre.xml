@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/abecedario"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/braille_button"
+        android:src="@drawable/placeholder"
         android:layout_marginTop="70dp" />
 
     <TextView

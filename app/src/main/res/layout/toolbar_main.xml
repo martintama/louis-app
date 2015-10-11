@@ -2,8 +2,8 @@
 <android.support.v7.widget.Toolbar
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:background="?attr/colorPrimary"
     android:elevation="2dp"
-    android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
@@ -12,5 +12,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/app_name"
+        android:textColor="@color/textColorPrimary"
         android:id="@+id/lblAppName" />
 </android.support.v7.widget.Toolbar>

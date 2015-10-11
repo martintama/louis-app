@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="68dp"
         android:contentDescription="@string/timer"
-        android:src="@drawable/braille_button" />
+        android:src="@drawable/placeholder" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnThumbsDown"
-        android:src="@drawable/ic_thumb_down_white_48dp"
+        android:src="@drawable/ic_thumb_down_black_48dp"
         android:layout_alignTop="@+id/btnThumbsUp"
         android:layout_toRightOf="@+id/btnResend"
         android:layout_toEndOf="@+id/btnResend" />
@@ -79,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnThumbsUp"
-        android:src="@drawable/ic_thumb_up_white_48dp"
+        android:src="@drawable/ic_thumb_up_black_48dp"
         android:layout_below="@+id/linearLayoutBraille"
         android:layout_toLeftOf="@+id/btnFinish"
         android:layout_toStartOf="@+id/btnFinish"

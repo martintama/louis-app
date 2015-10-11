@@ -12,9 +12,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inclutec.louis.Globals;
@@ -74,21 +78,59 @@ public class ProfileActivity extends LouisActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_user_new) {
+        switch (id){
+            case R.id.action_user_new: {
+                ProfileNewFragment newFragment = new ProfileNewFragment();
 
-            ProfileNewFragment newFragment = new ProfileNewFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                // Add the fragment to the 'fragment_container' FrameLayout
+                transaction.replace(R.id.profile_fragment_container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
 
-            // Add the fragment to the 'fragment_container' FrameLayout
-            transaction.replace(R.id.profile_fragment_container, newFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+                break;
+            }
+            case R.id.action_user_add: {
+                saveNewUser();
+                ProfileMainFragment newFragment = new ProfileMainFragment();
 
-            return true;
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                // Add the fragment to the 'fragment_container' FrameLayout
+                transaction.replace(R.id.profile_fragment_container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveNewUser() {
+
+        //hide keyboard
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(
+                (null == getCurrentFocus()) ?
+                        null
+                        :
+                        getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS
+                );
+
+        TextView nameView = (TextView)findViewById(R.id.txtName);
+
+        RadioGroup rgroup = (RadioGroup) findViewById(R.id.genderRadioGroup);
+        RadioButton genderView = (RadioButton)findViewById(rgroup.getCheckedRadioButtonId());
+
+        TextView dniView = (TextView)findViewById(R.id.txtDni);
+        TextView dobView = (TextView)findViewById(R.id.txtDob);
+
+        Toast toast1 = Toast.makeText(this, nameView.getText(), Toast.LENGTH_SHORT);
+        toast1.show();
     }
 
 
