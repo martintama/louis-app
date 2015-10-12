@@ -9,6 +9,8 @@ import com.inclutec.louis.db.SQLiteHelper;
 import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 /**
  * Created by martin on 9/22/15.
  */
@@ -37,6 +39,7 @@ public class LouisApplication extends Application {
         Globals.logInfo(CLASSNAME, "Started Louis Application");
         initalizeDependencies(false);
 
+        JodaTimeAndroid.init(this);
 
         // Setup handler for uncaught exceptions.
         Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
@@ -54,7 +57,7 @@ public class LouisApplication extends Application {
         Globals.logError(CLASSNAME, e.getMessage(), e);
 
         Intent intent = new Intent ();
-        intent.setAction ("ar.com.inclutec.SEND_LOG"); // see step 5.
+        intent.setAction ("com.inclutec.SEND_LOG"); // see step 5.
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // required when starting from Application
         startActivity(intent);
 

@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * Created by martin on 9/14/15.
  */
-@DatabaseTable(tableName = "user")
+@DatabaseTable(tableName = "users")
 public class User {
     public static final String ID = "_id";
     public static final String NAME = "name";

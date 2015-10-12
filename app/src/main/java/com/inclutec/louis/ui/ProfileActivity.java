@@ -1,33 +1,27 @@
 package com.inclutec.louis.ui;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.os.AsyncTask;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.CursorAdapter;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.inclutec.louis.Globals;
 import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
-import com.inclutec.louis.adapters.UserListDataAdapter;
-import com.inclutec.louis.db.datasources.UserListDataSource;
+import com.inclutec.louis.db.models.User;
 import com.inclutec.louis.ui.fragments.ProfileMainFragment;
 import com.inclutec.louis.ui.fragments.ProfileNewFragment;
+import com.j256.ormlite.dao.Dao;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.SQLException;
 
@@ -44,7 +38,7 @@ public class ProfileActivity extends LouisActivity {
         ProfileMainFragment firstFragment = new ProfileMainFragment();
 
         // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .add(R.id.profile_fragment_container, firstFragment).commit();
 
         final Toolbar actionBarToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
@@ -82,7 +76,7 @@ public class ProfileActivity extends LouisActivity {
             case R.id.action_user_new: {
                 ProfileNewFragment newFragment = new ProfileNewFragment();
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 // Add the fragment to the 'fragment_container' FrameLayout
                 transaction.replace(R.id.profile_fragment_container, newFragment);
@@ -95,7 +89,7 @@ public class ProfileActivity extends LouisActivity {
                 saveNewUser();
                 ProfileMainFragment newFragment = new ProfileMainFragment();
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 // Add the fragment to the 'fragment_container' FrameLayout
                 transaction.replace(R.id.profile_fragment_container, newFragment);
@@ -129,8 +123,31 @@ public class ProfileActivity extends LouisActivity {
         TextView dniView = (TextView)findViewById(R.id.txtDni);
         TextView dobView = (TextView)findViewById(R.id.txtDob);
 
-        Toast toast1 = Toast.makeText(this, nameView.getText(), Toast.LENGTH_SHORT);
-        toast1.show();
+        User newUser = new User();
+
+        if (nameView.getText().length() > 0) {
+            newUser.setName(nameView.getText().toString());
+        }
+        if (genderView != null && genderView.getText().length() > 0) {
+            newUser.setGender(genderView.getText().charAt(0));
+        }
+        if (dniView.getText().length() > 0) {
+            newUser.setDni(dniView.getText().toString());
+        }
+        if (dobView.getText().length() > 0) {
+            DateTimeFormatter dtf = DateTimeFormat.forPattern("dd/MM/yyyy");
+            DateTime dayOfBirth = DateTime.parse(dobView.getText().toString(), dtf);
+            newUser.setDayOfBirth(new java.sql.Date(dayOfBirth.getMillis()));
+        }
+
+        newUser.setActive(true);
+
+        try {
+            Dao userDao = getHelper().getUserDao();
+            userDao.create(newUser);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

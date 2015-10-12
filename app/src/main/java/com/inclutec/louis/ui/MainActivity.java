@@ -1,21 +1,30 @@
 package com.inclutec.louis.ui;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.inclutec.louis.Globals;
 import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
 import com.inclutec.louis.adapters.DrawerListAdapter;
 import com.inclutec.louis.exercises.ExerciseType;
 import com.inclutec.louis.extra.DrawerItem;
+import com.inclutec.louis.lib.BackupManager;
+import com.inclutec.louis.lib.FileManager;
+import com.inclutec.louis.ui.fragments.ProfileMainFragment;
+import com.inclutec.louis.ui.fragments.ProfileNewFragment;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends LouisActivity{
@@ -66,6 +75,29 @@ public class MainActivity extends LouisActivity{
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        switch (id){
+            case R.id.action_export: {
+
+                BackupManager bkMgr = new BackupManager();
+                bkMgr.setContext(getApplicationContext());
+
+                bkMgr.exportDB(this.getExternalFilesDir(null).getAbsolutePath());
+
+                break;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void openPracticeActivity(ExerciseType mode){
         Intent intentSettings = new Intent(this, ExerciseActivity.class);
         intentSettings.putExtra("type", mode);
@@ -102,7 +134,7 @@ public class MainActivity extends LouisActivity{
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        //getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

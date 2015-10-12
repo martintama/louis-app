@@ -33,8 +33,8 @@ public class UserListDataSource {
 
     public Cursor getCursorForAll() throws SQLException {
 
-        String query = "select _id user_id, name from users " +
-                "where active = true";
+        String query = "select _id  , name from users " +
+                "where active = 1";
 
         Globals.logDebug(CLASSNAME, String.format("SQLString: %s", query));
         Cursor cursor = mDbHelper.getReadableDatabase().rawQuery(query, null);

@@ -1,13 +1,10 @@
 package com.inclutec.louis.ui.fragments;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -23,7 +20,6 @@ import com.inclutec.louis.Globals;
 import com.inclutec.louis.R;
 import com.inclutec.louis.adapters.UserListDataAdapter;
 import com.inclutec.louis.db.datasources.UserListDataSource;
-import com.inclutec.louis.ui.ProfileActivity;
 
 import java.sql.SQLException;
 

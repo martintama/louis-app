@@ -70,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
-        android:ems="10"
+        android:focusable="false"
         android:id="@+id/txtDob" />
 
 </LinearLayout>

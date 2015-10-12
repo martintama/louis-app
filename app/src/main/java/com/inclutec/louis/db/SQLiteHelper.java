@@ -35,17 +35,12 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, Statistic.class);
+            Log.i(Globals.TAG, "Initialized tables");
 
-            this.initializeTables();
         } catch (SQLException e) {
             Log.e(Globals.TAG, e.getMessage(), e);
         }
     }
-
-    private void initializeTables() {
-
-    }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
@@ -53,16 +48,6 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         onCreate(database, connectionSource);
-    }
-
-    public void resetDb(SQLiteDatabase database, ConnectionSource connectionSource){
-
-        try {
-            TableUtils.dropTable(connectionSource, User.class, false);
-            TableUtils.dropTable(connectionSource, Statistic.class, false);
-        } catch (SQLException e) {
-            Log.e(Globals.TAG, e.getMessage(), e);
-        }
     }
 
     public Dao<User, Integer> getUserDao() throws SQLException {
@@ -78,6 +63,17 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
         }
         return statisticDao;
     }
+
+    public void resetDb(SQLiteDatabase database, ConnectionSource connectionSource){
+
+        try {
+            TableUtils.dropTable(connectionSource, User.class, false);
+            TableUtils.dropTable(connectionSource, Statistic.class, false);
+        } catch (SQLException e) {
+            Log.e(Globals.TAG, e.getMessage(), e);
+        }
+    }
+
 
 
     @Override
