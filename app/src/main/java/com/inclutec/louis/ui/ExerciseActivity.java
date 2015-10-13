@@ -1,10 +1,13 @@
 package com.inclutec.louis.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.inclutec.louis.Globals;
 import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
 import com.inclutec.louis.exercises.ExerciseAbecedario;
@@ -20,7 +23,6 @@ public class ExerciseActivity extends LouisActivity implements
         ExerciseFragment.OnFragmentInteractionListener{
 
     private String userName = "";
-    private int level = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class ExerciseActivity extends LouisActivity implements
         setContentView(R.layout.activity_exercise);
 
         Bundle bundle = getIntent().getExtras();
+
+        SharedPreferences prefs = getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
+        userName = prefs.getString(Globals.PREFS_KEY_USER_NAME, "User");
 
         // Create a new Fragment to be placed in the activity layout
         ExercisePreFragment firstFragment = new ExercisePreFragment();
@@ -99,7 +104,7 @@ public class ExerciseActivity extends LouisActivity implements
     }
 
     @Override
-    public void onExerciseFinish(ExerciseType type, int counterHit, int counterMiss, int seconds) {
+    public void onExerciseFinish(ExerciseType type, int level, int counterHit, int counterMiss, int seconds) {
         ExerciseResultFragment nextFragment = new ExerciseResultFragment();
         Bundle args = new Bundle();
         args.putInt("counterHit", counterHit);

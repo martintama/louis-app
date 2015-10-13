@@ -4,11 +4,12 @@
     tools:context="com.inclutec.louis.ui.fragments.ProfileMainFragment">
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/userList"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+         />
 
 </FrameLayout>

@@ -13,7 +13,7 @@ public class Statistic {
     public static final String ID = "_id";
     public static final String USER_ID = "user_id";
     public static final String DATE = "date";
-    public static final String EXCERSISE = "excercise";
+    public static final String EXERCISE = "excercise";
     public static final String LEVEL = "level";
     public static final String QTY_HIT = "qty_ok";
     public static final String QTY_MISS = "qty_miss";
@@ -28,7 +28,7 @@ public class Statistic {
     @DatabaseField(columnName = DATE)
     private Date date;
 
-    @DatabaseField(columnName = EXCERSISE)
+    @DatabaseField(columnName = EXERCISE)
     private String excersise;
 
     @DatabaseField(columnName = LEVEL)

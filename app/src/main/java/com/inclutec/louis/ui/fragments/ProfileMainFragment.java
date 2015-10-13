@@ -2,6 +2,7 @@ package com.inclutec.louis.ui.fragments;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -93,8 +94,26 @@ public class ProfileMainFragment extends Fragment {
                 Toast theToast = Toast.makeText(getActivity(),
                         String.format("Setting user %s of id %s", name, user_id), Toast.LENGTH_LONG);
 
+                SharedPreferences prefs = getActivity().getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
+                SharedPreferences.Editor edit = prefs.edit();
+                edit.putInt(Globals.PREFS_KEY_USER_ID, user_id);
+                edit.putString(Globals.PREFS_KEY_USER_NAME, name);
+
                 theToast.show();
 
+            }
+        });
+
+        userList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+                                           int pos, long id) {
+                Toast theToast = Toast.makeText(getActivity(),
+                        String.format("Long click at item %s", pos), Toast.LENGTH_LONG);
+
+                theToast.show();
+
+                return true;
             }
         });
     }

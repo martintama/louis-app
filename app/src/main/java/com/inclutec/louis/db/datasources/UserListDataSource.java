@@ -33,7 +33,7 @@ public class UserListDataSource {
 
     public Cursor getCursorForAll() throws SQLException {
 
-        String query = "select _id  , name from users " +
+        String query = "select _id, name from users " +
                 "where active = 1";
 
         Globals.logDebug(CLASSNAME, String.format("SQLString: %s", query));

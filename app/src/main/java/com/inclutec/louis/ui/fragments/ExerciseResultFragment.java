@@ -1,5 +1,7 @@
 package com.inclutec.louis.ui.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.inclutec.louis.Globals;
 import com.inclutec.louis.R;
 import com.inclutec.louis.exercises.ExerciseType;
 import com.inclutec.louis.lib.BrailleCellImageHandler;
@@ -16,6 +19,7 @@ public class ExerciseResultFragment extends Fragment {
 
     View inflatedView;
 
+    private String userName = "User";
     private int userId = 0;
     private int seconds = 0;
     private int counterHit = 0;
@@ -53,9 +57,10 @@ public class ExerciseResultFragment extends Fragment {
     public void loadResults(){
 
         Bundle bundle = getArguments();
-        counterHit = (int) bundle.get("counterHit");
-        counterMiss = (int) bundle.get("counterMiss");
-        seconds = (int) bundle.get("seconds");
+        userName =  bundle.getString("userName");
+        counterHit = bundle.getInt("counterHit");
+        counterMiss = bundle.getInt("counterMiss");
+        seconds = bundle.getInt("seconds");
 
 
         TextView txtThumbsUpCounter = (TextView) inflatedView.findViewById(R.id.txtThumbsUpCounter);
@@ -65,7 +70,7 @@ public class ExerciseResultFragment extends Fragment {
 
         txtThumbsUpCounter.setText(String.valueOf(counterHit));
         txtThumbsDownCounter.setText(String.valueOf(counterMiss));
-        txtName.setText("User");
+        txtName.setText(userName);
         txtTime.setText(String.valueOf(seconds));
 
 

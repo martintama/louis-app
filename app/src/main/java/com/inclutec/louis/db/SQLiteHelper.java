@@ -7,6 +7,7 @@ import android.util.Log;
 import com.inclutec.louis.Globals;
 import com.inclutec.louis.db.models.Statistic;
 import com.inclutec.louis.db.models.User;
+import com.inclutec.louis.db.models.UserLevel;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -22,6 +23,7 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<User, Integer> userDao;
     private Dao<Statistic, Integer> statisticDao;
+    private Dao<UserLevel, Integer> userLevelDao;
 
     Context context;
 
@@ -35,6 +37,7 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.createTable(connectionSource, User.class);
             TableUtils.createTable(connectionSource, Statistic.class);
+            TableUtils.createTable(connectionSource, UserLevel.class);
             Log.i(Globals.TAG, "Initialized tables");
 
         } catch (SQLException e) {
@@ -62,6 +65,14 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
             statisticDao = getDao(Statistic.class);
         }
         return statisticDao;
+    }
+
+    public Dao<UserLevel, Integer> getUserLevelDao() throws SQLException{
+        if (userLevelDao == null){
+            userLevelDao = getDao(UserLevel.class);
+        }
+
+        return userLevelDao;
     }
 
     public void resetDb(SQLiteDatabase database, ConnectionSource connectionSource){

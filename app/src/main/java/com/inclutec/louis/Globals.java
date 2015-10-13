@@ -8,10 +8,13 @@ import android.util.Log;
 public class Globals {
     public static final String TAG = "Louis"; //default app tag
 
-    public static final int SQLITE_DB_VERSION = 1;
+    public static final int SQLITE_DB_VERSION = 2;
     public static final String DATABASE_NAME = "louis.db";
     public static final String PREFS_NAME = "louisPrefs";
-    public static final String APP_DIR = "louis";
+    public static final String PREFS_KEY_USER_ID = "user_id";
+    public static final String PREFS_KEY_USER_NAME = "user_name";
+    public static final String PREFS_KEY_EXERCISE_LEVEL = "level";
+
 
     public static void logDebug(String className, String message){
         Log.d(Globals.TAG, String.format("[%s]: %s", className, message));

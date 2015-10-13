@@ -4,18 +4,26 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.inclutec.louis.Globals;
+import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
+import com.inclutec.louis.db.models.UserLevel;
 import com.inclutec.louis.exercises.ExerciseType;
 import com.inclutec.louis.interfaces.BrailleExercise;
 import com.inclutec.louis.lib.BrailleCellImageHandler;
 import com.inclutec.louis.lib.BrailleManager;
 import com.inclutec.louis.mocks.LouisDeviceMock;
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -28,7 +36,6 @@ public class ExerciseFragment extends Fragment {
     private BrailleManager brailleManager;
     private BrailleExercise exercise;
     private ExerciseType selectedType;
-    private String lastChar;
 
     private View inflatedView;
 
@@ -36,6 +43,9 @@ public class ExerciseFragment extends Fragment {
     private int counterMiss = 0;
     private int seconds = 0;
 
+    private int userLevel = 1;
+
+    private String lastChar;
 
     public ExerciseFragment() {
 
@@ -67,20 +77,31 @@ public class ExerciseFragment extends Fragment {
 
         setListeners(inflatedView);
 
+        userLevel = getUserLevel(selectedType.name());
         this.initializeExercise();
 
         return inflatedView;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    private int getUserLevel(String exercise){
+
+        int returnedUserLevel = 1;
         try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+            Dao userLevelDao = ((LouisActivity) getActivity()).getHelper().getUserLevelDao();
+
+            List<UserLevel> results = userLevelDao.queryForEq(UserLevel.EXERCISE, exercise);
+
+            if (results.size() > 0){
+                UserLevel level = results.get(0);
+                returnedUserLevel = level.getLevel();
+            }
+
+        } catch (SQLException e) {
+            Log.e(Globals.TAG, e.getMessage(), e);
         }
+
+        return returnedUserLevel;
+
     }
 
     public void setListeners(View container){
@@ -92,7 +113,7 @@ public class ExerciseFragment extends Fragment {
                     case R.id.btnFinish:
 
                         if (mListener != null){
-                            mListener.onExerciseFinish(selectedType, counterHit, counterMiss, seconds);
+                            mListener.onExerciseFinish(selectedType, userLevel, counterHit, counterMiss, seconds);
                         }
                         break;
                     case R.id.btnResend:
@@ -124,7 +145,7 @@ public class ExerciseFragment extends Fragment {
     }
 
     public void initializeExercise(){
-        exercise.loadProgress(1, 1);
+        exercise.loadProgress(userLevel, 1);
 
         this.loadNextChar();
     }
@@ -135,7 +156,7 @@ public class ExerciseFragment extends Fragment {
         //If we have reached the finish
         if (nextChar == "\n"){
             if (mListener != null){
-                mListener.onExerciseFinish(selectedType, counterHit, counterMiss, seconds);
+                mListener.onExerciseFinish(selectedType, userLevel, counterHit, counterMiss, seconds);
             }
         }else {
             setBrailleCharImage(nextChar);
@@ -160,6 +181,6 @@ public class ExerciseFragment extends Fragment {
     public interface OnFragmentInteractionListener {
 
         // TODO: Update argument type and name
-        void onExerciseFinish(ExerciseType type, int counterHit, int counterMiss, int seconds);
+        void onExerciseFinish(ExerciseType type, int level, int counterHit, int counterMiss, int seconds);
     }
 }
