@@ -41,7 +41,7 @@ public class ProfileActivity extends LouisActivity {
         getFragmentManager().beginTransaction()
                 .add(R.id.profile_fragment_container, firstFragment).commit();
 
-        final Toolbar actionBarToolbar = (Toolbar) findViewById(R.id.toolbar_profile);
+        final Toolbar actionBarToolbar = (Toolbar) findViewById(R.id.louisToolbar);
         setSupportActionBar(actionBarToolbar);
 
     }

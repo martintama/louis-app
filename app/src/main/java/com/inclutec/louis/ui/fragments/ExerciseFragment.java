@@ -1,29 +1,23 @@
 package com.inclutec.louis.ui.fragments;
 
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.inclutec.louis.Globals;
-import com.inclutec.louis.LouisActivity;
+import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
-import com.inclutec.louis.db.models.UserLevel;
 import com.inclutec.louis.exercises.ExerciseType;
+import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
 import com.inclutec.louis.interfaces.BrailleExercise;
 import com.inclutec.louis.lib.BrailleCellImageHandler;
-import com.inclutec.louis.lib.BrailleManager;
+import com.inclutec.louis.lib.BrailleExerciseManager;
+import com.inclutec.louis.lib.LouisDeviceConnector;
 import com.inclutec.louis.mocks.LouisDeviceMock;
-import com.j256.ormlite.dao.Dao;
-
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -33,7 +27,8 @@ public class ExerciseFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private BrailleCellImageHandler brailleCellImageHandler;
-    private BrailleManager brailleManager;
+    private BrailleExerciseManager brailleManager;
+    private ArduinoDeviceConnector louisDeviceConnector;
     private BrailleExercise exercise;
     private ExerciseType selectedType;
 
@@ -57,16 +52,15 @@ public class ExerciseFragment extends Fragment {
 
         Bundle bundle = getArguments();
         selectedType = (ExerciseType) bundle.get("type");
+        userLevel = bundle.getInt("level");
 
         brailleCellImageHandler = new BrailleCellImageHandler(getActivity());
-        brailleManager = new BrailleManager(getActivity());
+        brailleManager = ((LouisApplication)getActivity().getApplication()).getBrailleExerciseManager();
+        louisDeviceConnector = ((LouisApplication)getActivity().getApplication()).getDeviceConnector();
 
         brailleManager.setExerciseType(selectedType);
 
         exercise = brailleManager.getBrailleExercise();
-
-
-
 
     }
 
@@ -77,34 +71,12 @@ public class ExerciseFragment extends Fragment {
 
         setListeners(inflatedView);
 
-        userLevel = getUserLevel(selectedType.name());
         this.initializeExercise();
 
         return inflatedView;
     }
 
-    private int getUserLevel(String exercise){
-
-        int returnedUserLevel = 1;
-        try {
-            Dao userLevelDao = ((LouisActivity) getActivity()).getHelper().getUserLevelDao();
-
-            List<UserLevel> results = userLevelDao.queryForEq(UserLevel.EXERCISE, exercise);
-
-            if (results.size() > 0){
-                UserLevel level = results.get(0);
-                returnedUserLevel = level.getLevel();
-            }
-
-        } catch (SQLException e) {
-            Log.e(Globals.TAG, e.getMessage(), e);
-        }
-
-        return returnedUserLevel;
-
-    }
-
-    public void setListeners(View container){
+    private void setListeners(View container){
         View.OnClickListener buttonClickListener = new View.OnClickListener() {
 
             @Override
@@ -118,10 +90,8 @@ public class ExerciseFragment extends Fragment {
                         break;
                     case R.id.btnResend:
 
-                        //TODO find a way to make this configurable at startup
-                        LouisDeviceMock mock = new LouisDeviceMock();
-                        mock.setContext(getActivity());
-                        mock.write(lastChar);
+                        louisDeviceConnector.setContext(getActivity());
+                        louisDeviceConnector.write(lastChar);
                         break;
                     case R.id.btnThumbsUp:
                         counterHit += 1;
@@ -176,6 +146,10 @@ public class ExerciseFragment extends Fragment {
     private void setCharText(String character){
         TextView text = (TextView) inflatedView.findViewById(R.id.txtCaracter);
         text.setText(character);
+    }
+
+    public void setListener(OnFragmentInteractionListener mListener) {
+        this.mListener = mListener;
     }
 
     public interface OnFragmentInteractionListener {

@@ -18,6 +18,11 @@ public class ExerciseLibre implements BrailleExercise {
     }
 
     @Override
+    public ExerciseType getExerciseType() {
+        return ExerciseType.LIBRE;
+    }
+
+    @Override
     public String getNextChar() {
 
         String nextChar = "";
@@ -34,11 +39,13 @@ public class ExerciseLibre implements BrailleExercise {
 
     }
 
-    public static String getExerciseTitle() {
+    @Override
+    public String getExerciseTitle() {
         return "Libre";
     }
 
-    public static String getExerciseDescription(){
+    @Override
+    public String getExerciseDescription(){
         return "Breve descripcion del modulo de LIBRE";
     }
 

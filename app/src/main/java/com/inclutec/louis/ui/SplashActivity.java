@@ -1,7 +1,11 @@
 package com.inclutec.louis.ui;
 
 import com.inclutec.louis.Globals;
+import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
+import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
+import com.inclutec.louis.lib.LouisDeviceConnector;
+import com.inclutec.louis.mocks.LouisDeviceMock;
 import com.inclutec.louis.util.SystemUiHider;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -68,33 +72,70 @@ public class SplashActivity extends Activity {
     }
 
     private void checkDeviceConnection() {
+
         boolean connected = false;
+        int status = -1; //not connected
+        boolean retry = true;
 
-        if (connected) {
+        ArduinoDeviceConnector deviceConnector = null;
 
-            goToMainActivity();
-        }
-        else{
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("No se detectó el interprete Louis conectado a tu dispositivo.")
-                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            goToMainActivity();
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            // User cancelled the dialog
-                            finish();
-                            finish();
-                        }
-                    });
-            // Create the AlertDialog object and return it
+        try {
+            //first try with the real device
+            deviceConnector = new LouisDeviceConnector();
 
-            builder.create().show();
+            tryConnectDevice(deviceConnector);
+
 
         }
+        catch(Exception ex){
+            tryConnectDevice(deviceConnector);
+        }
+
+
+
+
+    }
+
+    private void tryConnectDevice(ArduinoDeviceConnector deviceConnector){
+
+        int status = 0;
+        status = deviceConnector.connect();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("No se detectó el interprete Louis conectado a tu dispositivo.")
+                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        LouisDeviceMock deviceConnector = new LouisDeviceMock();
+                        deviceConnector.initialize();
+                        deviceConnector.connect();
+                        ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
+
+                        goToMainActivity();
+                        finish();
+                    }
+                })
+                .setNeutralButton("Reintentar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        checkDeviceConnection();
+                    }
+                })
+                .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                        finish();
+                    }
+                });
+
+        // Create the AlertDialog object and return it
+
+        builder.create().show();
+
+        //If we got here, we where able to connect to device
+        deviceConnector.initialize();
+        ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
+        goToMainActivity();
+        finish();
     }
 
     @Override

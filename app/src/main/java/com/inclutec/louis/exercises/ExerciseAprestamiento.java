@@ -16,6 +16,11 @@ public class ExerciseAprestamiento implements BrailleExercise {
     }
 
     @Override
+    public ExerciseType getExerciseType() {
+        return ExerciseType.APRESTAMIENTO;
+    }
+
+    @Override
     public String getNextChar() {
         String nextChar = "";
         this.studiedLevelProgress = this.studiedLevelProgress + 1;
@@ -72,11 +77,13 @@ public class ExerciseAprestamiento implements BrailleExercise {
         return nextChar;
     }
 
-    public static String getExerciseTitle() {
+    @Override
+    public String getExerciseTitle() {
         return "Aprestamiento";
     }
 
-    public static String getExerciseDescription(){
+    @Override
+    public String getExerciseDescription(){
         return "Breve descripcion del modulo de APRESTAMIENTO";
     }
 

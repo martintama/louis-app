@@ -3,46 +3,57 @@ package com.inclutec.louis.ui;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.inclutec.louis.Globals;
 import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
-import com.inclutec.louis.exercises.ExerciseAbecedario;
-import com.inclutec.louis.exercises.ExerciseAprestamiento;
-import com.inclutec.louis.exercises.ExerciseLibre;
+import com.inclutec.louis.db.models.User;
+import com.inclutec.louis.db.models.UserLevel;
 import com.inclutec.louis.exercises.ExerciseType;
+import com.inclutec.louis.interfaces.BrailleExercise;
+import com.inclutec.louis.lib.BrailleExerciseManager;
 import com.inclutec.louis.ui.fragments.ExerciseFragment;
 import com.inclutec.louis.ui.fragments.ExercisePreFragment;
 import com.inclutec.louis.ui.fragments.ExerciseResultFragment;
+import com.j256.ormlite.dao.Dao;
+
+import java.sql.SQLException;
 
 public class ExerciseActivity extends LouisActivity implements
         ExercisePreFragment.OnFragmentInteractionListener,
-        ExerciseFragment.OnFragmentInteractionListener{
+        ExerciseFragment.OnFragmentInteractionListener, ExerciseResultFragment.ExerciseResultListener {
+
+    private android.support.v7.widget.Toolbar toolbar;
 
     private String userName = "";
+    private int userId = 0;
+    private int level = 1;
+
+    private BrailleExercise selectedExercise;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
-        Bundle bundle = getIntent().getExtras();
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.louisToolbar);
+        setSupportActionBar(toolbar);
 
         SharedPreferences prefs = getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
         userName = prefs.getString(Globals.PREFS_KEY_USER_NAME, "User");
+        userId = prefs.getInt(Globals.PREFS_KEY_USER_ID, 0);
 
-        // Create a new Fragment to be placed in the activity layout
+        Bundle bundle = getIntent().getExtras();
+        ExerciseType selectedType = (ExerciseType) bundle.get("type");
+        selectedExercise = BrailleExerciseManager.getBrailleExercise(selectedType);
+
         ExercisePreFragment firstFragment = new ExercisePreFragment();
-
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
         firstFragment.setArguments(bundle);
 
-        // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .add(R.id.exercise_fragment_container, firstFragment).commit();
     }
 
@@ -70,42 +81,36 @@ public class ExerciseActivity extends LouisActivity implements
     }
 
     @Override
-    public void onExerciseLoad(ExerciseType type) {
-        switch(type){
-            case ABECEDARIO:
-                setTitle(ExerciseAbecedario.getExerciseTitle());
-                break;
-            case APRESTAMIENTO:
-                setTitle(ExerciseAprestamiento.getExerciseTitle());
-                break;
-            case LIBRE:
-                setTitle(ExerciseLibre.getExerciseTitle());
-                break;
-        }
+    public void onExerciseLoad(BrailleExercise exerciseType) {
+        setTitle(exerciseType.getExerciseTitle());
     }
 
     @Override
-    public void onExerciseStart(ExerciseType type) {
+    public void onExerciseStart(BrailleExercise type) {
+
         // Create a new Fragment to be placed in the activity layout
         ExerciseFragment nextFragment = new ExerciseFragment();
 
         Bundle savedInstanceState = new Bundle();
 
-        savedInstanceState.putSerializable("selectedType", type);
-        nextFragment.setArguments(savedInstanceState);
+        savedInstanceState.putSerializable("selectedType", type.getExerciseType());
 
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
         nextFragment.setArguments(getIntent().getExtras());
+        nextFragment.setListener(this);
 
         // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .replace(R.id.exercise_fragment_container, nextFragment).commit();
     }
 
     @Override
     public void onExerciseFinish(ExerciseType type, int level, int counterHit, int counterMiss, int seconds) {
+
+        //Save user progress
+        this.saveProgress(userId, selectedExercise, level);
+
         ExerciseResultFragment nextFragment = new ExerciseResultFragment();
+        nextFragment.setListener(this);
         Bundle args = new Bundle();
         args.putInt("counterHit", counterHit);
         args.putInt("counterMiss", counterMiss);
@@ -114,9 +119,46 @@ public class ExerciseActivity extends LouisActivity implements
         args.putInt("level", level);
         nextFragment.setArguments(args);
 
-        getSupportFragmentManager().beginTransaction()
+        getFragmentManager().beginTransaction()
                 .replace(R.id.exercise_fragment_container, nextFragment).commit();
 
     }
+
+    private void saveProgress(int userId, BrailleExercise exercise, int level) {
+
+        try {
+            Dao userDao = getHelper().getUserDao();
+            Dao userLevelDao = getHelper().getUserLevelDao();
+
+            User currentUser = (User)userDao.queryForId(userId);
+
+            UserLevel userLevel = new UserLevel();
+            userLevel.setUser(currentUser);
+            userLevel.setExercise(exercise.getExerciseType().toString());
+            userLevel.setLevel(level);
+            userLevelDao.createOrUpdate(userLevel);
+
+
+        } catch (SQLException e) {
+            Log.e(Globals.TAG, e.getMessage(), e);
+        }
+
+    }
+
+    @Override
+    public void finishLevel() {
+        this.finish();
+    }
+
+    @Override
+    public void repeatLevel() {
+        this.onExerciseStart(selectedExercise);
+    }
+
+    @Override
+    public void nextLevel() {
+        this.onExerciseStart(selectedExercise);
+    }
+
 
 }

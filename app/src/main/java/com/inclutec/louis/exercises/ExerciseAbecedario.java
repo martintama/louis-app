@@ -26,6 +26,11 @@ public class ExerciseAbecedario implements BrailleExercise {
 
     }
 
+    @Override
+    public ExerciseType getExerciseType() {
+        return ExerciseType.ABECEDARIO;
+    }
+
 
     @Override
     public String getNextChar() {
@@ -43,11 +48,13 @@ public class ExerciseAbecedario implements BrailleExercise {
         return nextChar;
     }
 
-    public static String getExerciseTitle() {
+    @Override
+    public String getExerciseTitle() {
         return "Abecedario";
     }
 
-    public static String getExerciseDescription(){
+    @Override
+    public String getExerciseDescription(){
         return "Breve descripcion del modulo de ABECEDARIO";
     }
 
