@@ -9,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
+import com.inclutec.louis.exercises.ExerciseType;
 import com.inclutec.louis.interfaces.BrailleExercise;
+import com.inclutec.louis.lib.BrailleCellImageHandler;
+import com.inclutec.louis.lib.BrailleExerciseManager;
 
 public class ExercisePreFragment extends Fragment {
 
@@ -25,7 +29,14 @@ public class ExercisePreFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle bundle = getArguments();
+        ExerciseType selectedType = (ExerciseType) bundle.get("type");
 
+        BrailleExerciseManager brailleManager = ((LouisApplication)getActivity().getApplication()).getBrailleExerciseManager();
+
+        brailleManager.setExerciseType(selectedType);
+
+        brailleExercise = brailleManager.getBrailleExercise();
     }
 
     @Override
@@ -58,6 +69,10 @@ public class ExercisePreFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void setListener(OnFragmentInteractionListener mListener) {
+        this.mListener = mListener;
     }
 
     public interface OnFragmentInteractionListener {

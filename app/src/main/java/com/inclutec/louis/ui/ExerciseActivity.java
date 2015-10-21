@@ -52,6 +52,7 @@ public class ExerciseActivity extends LouisActivity implements
 
         ExercisePreFragment firstFragment = new ExercisePreFragment();
         firstFragment.setArguments(bundle);
+        firstFragment.setListener(this);
 
         getFragmentManager().beginTransaction()
                 .add(R.id.exercise_fragment_container, firstFragment).commit();

@@ -89,8 +89,6 @@ public class ExerciseFragment extends Fragment {
                         }
                         break;
                     case R.id.btnResend:
-
-                        louisDeviceConnector.setContext(getActivity());
                         louisDeviceConnector.write(lastChar);
                         break;
                     case R.id.btnThumbsUp:
@@ -131,6 +129,7 @@ public class ExerciseFragment extends Fragment {
         }else {
             setBrailleCharImage(nextChar);
             setCharText(nextChar);
+            louisDeviceConnector.write(lastChar);
 
             lastChar = nextChar;
         }

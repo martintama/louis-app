@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -82,13 +83,15 @@ public class SplashActivity extends Activity {
         try {
             //first try with the real device
             deviceConnector = new LouisDeviceConnector();
-
+            deviceConnector.setContext(this);
             tryConnectDevice(deviceConnector);
 
 
         }
         catch(Exception ex){
-            tryConnectDevice(deviceConnector);
+
+            Toast aToast = Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG);
+            aToast.show();
         }
 
 
@@ -98,44 +101,92 @@ public class SplashActivity extends Activity {
 
     private void tryConnectDevice(ArduinoDeviceConnector deviceConnector){
 
-        int status = 0;
-        status = deviceConnector.connect();
+        try {
+            int status = 0;
+            deviceConnector.initialize();
+            status = deviceConnector.connect();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("No se detectó el interprete Louis conectado a tu dispositivo.")
-                .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        LouisDeviceMock deviceConnector = new LouisDeviceMock();
-                        deviceConnector.initialize();
-                        deviceConnector.connect();
-                        ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
+            if (status == 0){
+                ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
+                goToMainActivity();
+                finish();
+            }
+            else {
 
-                        goToMainActivity();
-                        finish();
-                    }
-                })
-                .setNeutralButton("Reintentar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                        checkDeviceConnection();
-                    }
-                })
-                .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                        finish();
-                    }
-                });
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("No se detectó el interprete Louis conectado a tu dispositivo.")
+                        .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                LouisDeviceMock deviceConnector = new LouisDeviceMock();
+                                deviceConnector.initialize();
+                                deviceConnector.connect();
+                                ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
 
-        // Create the AlertDialog object and return it
+                                goToMainActivity();
+                                finish();
+                            }
+                        })
+                        .setNeutralButton("Reintentar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                                checkDeviceConnection();
+                            }
+                        })
+                        .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                                finish();
+                            }
+                        });
 
-        builder.create().show();
+                // Create the AlertDialog object and return it
 
-        //If we got here, we where able to connect to device
-        deviceConnector.initialize();
-        ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
-        goToMainActivity();
-        finish();
+                builder.create().show();
+
+            }
+        }
+        catch(Exception ex){
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Error conectando con el interprete Louis")
+                    .setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                            checkDeviceConnection();
+                        }
+                    })
+                    .setNeutralButton("Omitir", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            LouisDeviceMock deviceConnector = new LouisDeviceMock();
+                            deviceConnector.initialize();
+                            deviceConnector.connect();
+                            ((LouisApplication)
+
+                                    getApplication()
+
+                            ).
+
+                                    setDeviceConnector(deviceConnector);
+
+                            goToMainActivity();
+
+                            finish();
+
+                        }
+
+
+                    })
+                    .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                            finish();
+                        }
+                    });
+
+            // Create the AlertDialog object and return it
+
+            builder.create().show();
+        }
     }
 
     @Override
