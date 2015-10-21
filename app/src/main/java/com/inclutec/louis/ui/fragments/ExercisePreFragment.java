@@ -1,25 +1,25 @@
 package com.inclutec.louis.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
-import com.inclutec.louis.exercises.ExerciseAbecedario;
-import com.inclutec.louis.exercises.ExerciseAprestamiento;
-import com.inclutec.louis.exercises.ExerciseLibre;
 import com.inclutec.louis.exercises.ExerciseType;
+import com.inclutec.louis.interfaces.BrailleExercise;
+import com.inclutec.louis.lib.BrailleCellImageHandler;
+import com.inclutec.louis.lib.BrailleExerciseManager;
 
 public class ExercisePreFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private ExerciseType selectedType;
+    private BrailleExercise brailleExercise;
 
     public ExercisePreFragment() {
         // Required empty public constructor
@@ -30,7 +30,13 @@ public class ExercisePreFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        selectedType = (ExerciseType) bundle.get("type");
+        ExerciseType selectedType = (ExerciseType) bundle.get("type");
+
+        BrailleExerciseManager brailleManager = ((LouisApplication)getActivity().getApplication()).getBrailleExerciseManager();
+
+        brailleManager.setExerciseType(selectedType);
+
+        brailleExercise = brailleManager.getBrailleExercise();
     }
 
     @Override
@@ -44,13 +50,13 @@ public class ExercisePreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onExerciseStart(selectedType);
+                    mListener.onExerciseStart(brailleExercise);
                 }
             }
         });
 
         if (mListener != null){
-            mListener.onExerciseLoad(selectedType);
+            mListener.onExerciseLoad(brailleExercise);
         }
 
         loadExerciseDescription(inflatedView);
@@ -60,43 +66,27 @@ public class ExercisePreFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
+    public void setListener(OnFragmentInteractionListener mListener) {
+        this.mListener = mListener;
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
 
-        void onExerciseLoad(ExerciseType type);
+        void onExerciseLoad(BrailleExercise exerciseType);
 
-        void onExerciseStart(ExerciseType type);
+        void onExerciseStart(BrailleExercise exerciseType);
     }
 
     public void loadExerciseDescription(View inflatedView){
 
         TextView description = (TextView) inflatedView.findViewById(R.id.txtDescription);
-        switch(selectedType){
-            case ABECEDARIO:
-                description.setText(ExerciseAbecedario.getExerciseDescription());
-                break;
-            case APRESTAMIENTO:
-                description.setText(ExerciseAprestamiento.getExerciseDescription());
-                break;
-            case LIBRE:
-                description.setText(ExerciseLibre.getExerciseDescription());
-                break;
-        }
+        description.setText(brailleExercise.getExerciseDescription());
+
     }
 }

@@ -108,9 +108,7 @@ public class MainActivity extends LouisActivity{
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
-        toolbar.setTitle("");  ;//que no diga nada por ahora
-
+        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.louisToolbar);
         setSupportActionBar(toolbar);
 
         //add the header to the drawer
@@ -164,6 +162,5 @@ public class MainActivity extends LouisActivity{
 
         }
     }
-
 
 }

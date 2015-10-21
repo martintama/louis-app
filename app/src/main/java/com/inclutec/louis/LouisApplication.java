@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.inclutec.louis.db.SQLiteHelper;
 import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
+import com.inclutec.louis.lib.BrailleExerciseManager;
+import com.inclutec.louis.lib.LouisDeviceConnector;
+import com.inclutec.louis.mocks.LouisDeviceMock;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -19,6 +22,7 @@ public class LouisApplication extends Application {
     private String CLASSNAME = "LouisApplicationClass";
     private SQLiteHelper dbHelper;
     private ArduinoDeviceConnector deviceConnector;
+    private BrailleExerciseManager brailleExerciseManager;
 
     public void setDbHelper(SQLiteHelper helper){
         this.dbHelper = helper;
@@ -66,8 +70,11 @@ public class LouisApplication extends Application {
 
     public void initalizeDependencies(boolean useMocks) {
 
-        this.setDbHelper(OpenHelperManager.getHelper(this, SQLiteHelper.class));
-
+        if (!useMocks) {
+            this.setDbHelper(OpenHelperManager.getHelper(this, SQLiteHelper.class));
+            this.setBrailleExerciseManager(new BrailleExerciseManager(this));
+            this.setDeviceConnector(new LouisDeviceMock());
+        }
     }
 
     public ArduinoDeviceConnector getDeviceConnector() {
@@ -76,5 +83,13 @@ public class LouisApplication extends Application {
 
     public void setDeviceConnector(ArduinoDeviceConnector deviceConnector) {
         this.deviceConnector = deviceConnector;
+    }
+
+    public BrailleExerciseManager getBrailleExerciseManager() {
+        return brailleExerciseManager;
+    }
+
+    public void setBrailleExerciseManager(BrailleExerciseManager brailleExerciseManager) {
+        this.brailleExerciseManager = brailleExerciseManager;
     }
 }

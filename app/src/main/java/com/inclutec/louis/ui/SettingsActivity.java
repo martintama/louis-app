@@ -28,8 +28,7 @@ import java.util.List;
 
 public class SettingsActivity extends LouisActivity {
 
-
-
+    private android.support.v7.widget.Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,9 +36,9 @@ public class SettingsActivity extends LouisActivity {
 
         setContentView(R.layout.activity_settings);
 
-        final Toolbar actionBarToolbar = (Toolbar) findViewById(R.id.toolbar_settings);
+        final Toolbar actionBarToolbar = (Toolbar) findViewById(R.id.louisToolbar);
         setSupportActionBar(actionBarToolbar);
-        
+
         // Display the settings fragment as the content of the activity
         getFragmentManager().beginTransaction()
                 .replace(R.id.preference_fragment, new SettingsFragment()).commit();

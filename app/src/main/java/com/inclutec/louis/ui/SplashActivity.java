@@ -1,7 +1,11 @@
 package com.inclutec.louis.ui;
 
 import com.inclutec.louis.Globals;
+import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
+import com.inclutec.louis.interfaces.ArduinoDeviceConnector;
+import com.inclutec.louis.lib.LouisDeviceConnector;
+import com.inclutec.louis.mocks.LouisDeviceMock;
 import com.inclutec.louis.util.SystemUiHider;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
@@ -27,6 +31,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 
@@ -68,32 +73,119 @@ public class SplashActivity extends Activity {
     }
 
     private void checkDeviceConnection() {
+
         boolean connected = false;
+        int status = -1; //not connected
+        boolean retry = true;
 
-        if (connected) {
+        ArduinoDeviceConnector deviceConnector = null;
 
-            goToMainActivity();
+        try {
+            //first try with the real device
+            deviceConnector = new LouisDeviceConnector();
+            deviceConnector.setContext(this);
+            tryConnectDevice(deviceConnector);
+
+
         }
-        else{
+        catch(Exception ex){
+
+            Toast aToast = Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG);
+            aToast.show();
+        }
+
+
+
+
+    }
+
+    private void tryConnectDevice(ArduinoDeviceConnector deviceConnector){
+
+        try {
+            int status = 0;
+            deviceConnector.initialize();
+            status = deviceConnector.connect();
+
+            if (status == 0){
+                ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
+                goToMainActivity();
+                finish();
+            }
+            else {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("No se detectó el interprete Louis conectado a tu dispositivo.")
+                        .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                LouisDeviceMock deviceConnector = new LouisDeviceMock();
+                                deviceConnector.initialize();
+                                deviceConnector.connect();
+                                ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
+
+                                goToMainActivity();
+                                finish();
+                            }
+                        })
+                        .setNeutralButton("Reintentar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                                checkDeviceConnection();
+                            }
+                        })
+                        .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                                finish();
+                            }
+                        });
+
+                // Create the AlertDialog object and return it
+
+                builder.create().show();
+
+            }
+        }
+        catch(Exception ex){
+
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("No se detectó el interprete Louis conectado a tu dispositivo.")
-                    .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+            builder.setMessage("Error conectando con el interprete Louis")
+                    .setPositiveButton("Reintentar", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            goToMainActivity();
-                            finish();
+                            dialog.dismiss();
+                            checkDeviceConnection();
                         }
+                    })
+                    .setNeutralButton("Omitir", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            LouisDeviceMock deviceConnector = new LouisDeviceMock();
+                            deviceConnector.initialize();
+                            deviceConnector.connect();
+                            ((LouisApplication)
+
+                                    getApplication()
+
+                            ).
+
+                                    setDeviceConnector(deviceConnector);
+
+                            goToMainActivity();
+
+                            finish();
+
+                        }
+
+
                     })
                     .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // User cancelled the dialog
                             finish();
-                            finish();
                         }
                     });
+
             // Create the AlertDialog object and return it
 
             builder.create().show();
-
         }
     }
 

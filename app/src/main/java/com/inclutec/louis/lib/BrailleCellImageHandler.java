@@ -170,20 +170,14 @@ public class BrailleCellImageHandler {
             case "6": //Para el aprestamiento, el punto 6
                 drawableId = R.drawable.braille_char_6;
                 break;
-            case "12": //Para el aprestamiento, los puntos 1 y 2
-                drawableId = R.drawable.braille_char_12;
+            case "12": //Para el aprestamiento, los puntos 1 y 4
+                drawableId = R.drawable.braille_char_14;
                 break;
-            case "34": //Para el aprestamiento, los puntos 3 y 4
-                drawableId = R.drawable.braille_char_34;
+            case "34": //Para el aprestamiento, los puntos 2 y 5
+                drawableId = R.drawable.braille_char_25;
                 break;
-            case "56": //Para el aprestamiento, los puntos 5 y 6
-                drawableId = R.drawable.braille_char_56;
-                break;
-            case "123": //Para el aprestamiento, los puntos 1 2 y 3
-                drawableId = R.drawable.braille_char_123;
-                break;
-            case "456": //Para el aprestamiento, los puntos 4 5 y 6
-                drawableId = R.drawable.braille_char_456;
+            case "56": //Para el aprestamiento, los puntos 3 y 6
+                drawableId = R.drawable.braille_char_36;
                 break;
             case "123456": //Para el aprestamiento, todos los puntos arriba
                 drawableId = R.drawable.braille_char_123456;

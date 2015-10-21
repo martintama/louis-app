@@ -98,6 +98,7 @@ public class ProfileMainFragment extends Fragment {
                 SharedPreferences.Editor edit = prefs.edit();
                 edit.putInt(Globals.PREFS_KEY_USER_ID, user_id);
                 edit.putString(Globals.PREFS_KEY_USER_NAME, name);
+                edit.commit();
 
                 theToast.show();
 

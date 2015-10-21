@@ -3,6 +3,7 @@ package com.inclutec.louis.lib;
 import android.content.Context;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
@@ -121,7 +122,7 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
 
     @Override
     public void setContext(Context aContext) {
-
+        context = aContext;
     }
 
     @Override
@@ -191,6 +192,9 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
     }
 
     private void writeToAllLogs(String data){
+        Toast aToast = Toast.makeText(context, data, Toast.LENGTH_LONG);
+        aToast.show();
+
         Log.i(TAG, data);
         if (mLogListener != null){
             mLogListener.writeLog(data);
