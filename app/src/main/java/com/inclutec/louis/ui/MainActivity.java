@@ -12,9 +12,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.inclutec.louis.Globals;
 import com.inclutec.louis.LouisActivity;
+import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
 import com.inclutec.louis.adapters.DrawerListAdapter;
 import com.inclutec.louis.exercises.ExerciseType;
@@ -93,15 +95,56 @@ public class MainActivity extends LouisActivity{
 
                 break;
             }
+            case R.id.action_connect:{
+
+                LouisApplication app = (LouisApplication) getApplication();
+                int status = app.getDeviceConnector().connect();
+
+                if (status == 0){
+                    Toast aToast = Toast.makeText(this, "Conectado", Toast.LENGTH_LONG);
+                    aToast.show();
+                }
+                else{
+                    Toast aToast = Toast.makeText(this, "Error", Toast.LENGTH_LONG);
+                    aToast.show();
+                }
+
+                break;
+            }
+            case R.id.action_disconnect:{
+
+                LouisApplication app = (LouisApplication) getApplication();
+                int status = app.getDeviceConnector().disconnect();
+
+                if (status == 0){
+                    Toast aToast = Toast.makeText(this, "Desconectado", Toast.LENGTH_LONG);
+                    aToast.show();
+                }
+                else{
+                    Toast aToast = Toast.makeText(this, "Error", Toast.LENGTH_LONG);
+                    aToast.show();
+                }
+                break;
+            }
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     private void openPracticeActivity(ExerciseType mode){
-        Intent intentSettings = new Intent(this, ExerciseActivity.class);
-        intentSettings.putExtra("type", mode);
-        this.startActivity(intentSettings);
+
+        //first check if there's any user loaded
+        int userId = this.getSharedPreferences(Globals.PREFS_NAME, MODE_PRIVATE).getInt(Globals.PREFS_KEY_USER_ID, 0);
+
+        if (userId > 0) {
+            Intent intentSettings = new Intent(this, ExerciseActivity.class);
+            intentSettings.putExtra("type", mode);
+            this.startActivity(intentSettings);
+        }
+        else{
+            Toast aToast = Toast.makeText(this, "Debe seleccionar un usuario primero", Toast.LENGTH_LONG);
+            aToast.show();
+        }
     }
 
     private void loadNavDrawer() {

@@ -50,6 +50,7 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
     public void initialize(){
         mUsbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
     }
+
     @Override
     public int connect(){
         int errorCode = 0;

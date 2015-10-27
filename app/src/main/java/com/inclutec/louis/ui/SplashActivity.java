@@ -119,6 +119,7 @@ public class SplashActivity extends Activity {
                             public void onClick(DialogInterface dialog, int id) {
                                 LouisDeviceMock deviceConnector = new LouisDeviceMock();
                                 deviceConnector.initialize();
+                                deviceConnector.setContext(getApplicationContext());
                                 deviceConnector.connect();
                                 ((LouisApplication) getApplication()).setDeviceConnector(deviceConnector);
 
