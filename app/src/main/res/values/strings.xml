@@ -33,4 +33,7 @@
     <string name="preference_answer_timeout">Tiempo máximo de espera</string>
     <string name="action_add_user">Agregar</string>
     <string name="accept">Aceptar</string>
+    <string name="option_config">Configuraciones</string>
+    <string name="option_stats">Estadisticas</string>
+    <string name="option_user">Usuarios</string>
 </resources>

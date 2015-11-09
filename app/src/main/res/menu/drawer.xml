@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- group with single selected item so only one item is highlighted in the nav menu -->
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/option_user"
+            android:icon="@drawable/ic_account_circle_black_48dp"
+            android:title="@string/option_user"/>
+        <item
+            android:id="@+id/option_stats"
+            android:icon="@drawable/ic_assessment_black_48dp"
+            android:title="@string/option_stats"/>
+        <item
+            android:id="@+id/option_config"
+            android:icon="@drawable/ic_settings_black_48dp"
+            android:title="@string/option_config"/>
+    </group>
+</menu>

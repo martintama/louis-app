@@ -3,10 +3,14 @@ package com.inclutec.louis.ui;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Environment;
+import android.os.Handler;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,12 +40,13 @@ public class MainActivity extends LouisActivity{
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] drawerListItemsTag;
 
-    private android.support.v7.widget.Toolbar toolbar;
+    private final Handler mDrawerActionHandler = new Handler();
+    private int mNavItemId;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -50,11 +55,8 @@ public class MainActivity extends LouisActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        loadNavDrawer();
         super.loadToolbar();
-
-        //make it as false as this is the main app
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        loadNavDrawer();
 
         View.OnClickListener activityButtonListener = new View.OnClickListener() {
 
@@ -152,6 +154,7 @@ public class MainActivity extends LouisActivity{
     }
 
     private void loadNavDrawer() {
+
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -167,7 +170,7 @@ public class MainActivity extends LouisActivity{
         ArrayList<DrawerItem> items = new ArrayList<>();
         items.add(new DrawerItem(drawerListItemsTag[0], R.drawable.ic_account_circle_black_48dp));
         items.add(new DrawerItem(drawerListItemsTag[1], R.drawable.ic_assessment_black_48dp));
-        items.add(new DrawerItem(drawerListItemsTag[2], R.drawable.ic_settings_black_48dp));
+            items.add(new DrawerItem(drawerListItemsTag[2], R.drawable.ic_settings_black_48dp));
 
         mDrawerList.setAdapter(new DrawerListAdapter(this, items));
 
@@ -175,8 +178,24 @@ public class MainActivity extends LouisActivity{
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(true);
+        Toolbar toolbar = super.getToolbar();
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                invalidateOptionsMenu();
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

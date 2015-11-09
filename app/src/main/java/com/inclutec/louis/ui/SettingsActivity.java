@@ -17,6 +17,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 
 import com.inclutec.louis.LouisActivity;
@@ -33,9 +34,16 @@ public class SettingsActivity extends LouisActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        super.loadToolbar();
          // Display the settings fragment as the content of the activity
         getFragmentManager().beginTransaction()
                 .replace(R.id.preference_fragment, new SettingsFragment()).commit();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return true;
     }
 }
