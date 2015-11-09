@@ -31,12 +31,19 @@ import java.util.ArrayList;
 
 public class MainActivity extends LouisActivity{
 
-    private android.support.v7.widget.Toolbar toolbar;
-
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] drawerListItemsTag;
+
+    private android.support.v7.widget.Toolbar toolbar;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,10 @@ public class MainActivity extends LouisActivity{
         setContentView(R.layout.activity_main);
 
         loadNavDrawer();
+        super.loadToolbar();
+
+        //make it as false as this is the main app
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         View.OnClickListener activityButtonListener = new View.OnClickListener() {
 
@@ -68,13 +79,6 @@ public class MainActivity extends LouisActivity{
         findViewById(R.id.btnAprestamiento).setOnClickListener(activityButtonListener);
         findViewById(R.id.btnLibre).setOnClickListener(activityButtonListener);
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
     }
 
     @Override
@@ -150,9 +154,6 @@ public class MainActivity extends LouisActivity{
     private void loadNavDrawer() {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.louisToolbar);
-        setSupportActionBar(toolbar);
 
         //add the header to the drawer
         View header = getLayoutInflater().inflate(R.layout.drawer_header, null);

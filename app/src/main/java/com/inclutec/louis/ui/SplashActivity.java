@@ -83,7 +83,7 @@ public class SplashActivity extends Activity {
         try {
             //first try with the real device
             deviceConnector = new LouisDeviceConnector();
-            deviceConnector.setContext(this);
+            deviceConnector.setContext(getApplicationContext());
             tryConnectDevice(deviceConnector);
 
 
@@ -127,12 +127,12 @@ public class SplashActivity extends Activity {
                                 finish();
                             }
                         })
-                        .setNeutralButton("Reintentar", new DialogInterface.OnClickListener() {
+                      /*  .setNeutralButton("Reintentar", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.dismiss();
                                 checkDeviceConnection();
                             }
-                        })
+                        })*/
                         .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog

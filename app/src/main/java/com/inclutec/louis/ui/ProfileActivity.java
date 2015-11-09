@@ -29,11 +29,12 @@ public class ProfileActivity extends LouisActivity {
 
     private String CLASSNAME = "ProfileActivity";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        super.loadToolbar();
 
         ProfileMainFragment firstFragment = new ProfileMainFragment();
 
@@ -41,8 +42,6 @@ public class ProfileActivity extends LouisActivity {
         getFragmentManager().beginTransaction()
                 .add(R.id.profile_fragment_container, firstFragment).commit();
 
-        final Toolbar actionBarToolbar = (Toolbar) findViewById(R.id.louisToolbar);
-        setSupportActionBar(actionBarToolbar);
 
     }
 

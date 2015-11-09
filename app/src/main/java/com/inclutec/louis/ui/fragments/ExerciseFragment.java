@@ -58,6 +58,9 @@ public class ExerciseFragment extends Fragment {
         brailleManager = ((LouisApplication)getActivity().getApplication()).getBrailleExerciseManager();
         louisDeviceConnector = ((LouisApplication)getActivity().getApplication()).getDeviceConnector();
 
+        //this should not be necessary but... well...
+        louisDeviceConnector.setContext(getActivity());
+
         brailleManager.setExerciseType(selectedType);
 
         exercise = brailleManager.getBrailleExercise();
@@ -129,7 +132,7 @@ public class ExerciseFragment extends Fragment {
         }else {
             setBrailleCharImage(nextChar);
             setCharText(nextChar);
-            louisDeviceConnector.write(lastChar);
+            louisDeviceConnector.write(nextChar);
 
             lastChar = nextChar;
         }

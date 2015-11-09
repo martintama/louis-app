@@ -13,7 +13,8 @@ public class Statistic {
     public static final String ID = "_id";
     public static final String USER_ID = "user_id";
     public static final String DATE = "date";
-    public static final String EXERCISE = "excercise";
+    public static final String TIME = "time_elapsed";
+    public static final String EXERCISE = "exercise";
     public static final String LEVEL = "level";
     public static final String QTY_HIT = "qty_ok";
     public static final String QTY_MISS = "qty_miss";
@@ -27,6 +28,9 @@ public class Statistic {
 
     @DatabaseField(columnName = DATE)
     private Date date;
+
+    @DatabaseField(columnName = TIME)
+    private int timeElapsed; //This is in seconds
 
     @DatabaseField(columnName = EXERCISE)
     private String excersise;
@@ -65,6 +69,14 @@ public class Statistic {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public int getTimeElapsed() {
+        return timeElapsed;
+    }
+
+    public void setTimeElapsed(int timeElapsed) {
+        this.timeElapsed = timeElapsed;
     }
 
     public String getExcersise() {

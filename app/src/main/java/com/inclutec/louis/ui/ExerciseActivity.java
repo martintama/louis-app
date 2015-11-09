@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.inclutec.louis.Globals;
 import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.R;
+import com.inclutec.louis.db.models.Statistic;
 import com.inclutec.louis.db.models.User;
 import com.inclutec.louis.db.models.UserLevel;
 import com.inclutec.louis.exercises.ExerciseType;
@@ -20,13 +21,13 @@ import com.inclutec.louis.ui.fragments.ExercisePreFragment;
 import com.inclutec.louis.ui.fragments.ExerciseResultFragment;
 import com.j256.ormlite.dao.Dao;
 
+import org.joda.time.DateTime;
+
 import java.sql.SQLException;
 
 public class ExerciseActivity extends LouisActivity implements
         ExercisePreFragment.OnFragmentInteractionListener,
         ExerciseFragment.OnFragmentInteractionListener, ExerciseResultFragment.ExerciseResultListener {
-
-    private android.support.v7.widget.Toolbar toolbar;
 
     private String userName = "";
     private int userId = 0;
@@ -39,8 +40,7 @@ public class ExerciseActivity extends LouisActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
 
-        toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.louisToolbar);
-        setSupportActionBar(toolbar);
+        super.loadToolbar();
 
         SharedPreferences prefs = getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
         userName = prefs.getString(Globals.PREFS_KEY_USER_NAME, "User");
@@ -108,7 +108,7 @@ public class ExerciseActivity extends LouisActivity implements
     public void onExerciseFinish(ExerciseType type, int level, int counterHit, int counterMiss, int seconds) {
 
         //Save user progress
-        this.saveProgress(userId, selectedExercise, level);
+        this.saveProgress(userId, selectedExercise, level, counterHit, counterMiss, seconds);
 
         ExerciseResultFragment nextFragment = new ExerciseResultFragment();
         nextFragment.setListener(this);
@@ -125,12 +125,13 @@ public class ExerciseActivity extends LouisActivity implements
 
     }
 
-    private void saveProgress(int userId, BrailleExercise exercise, int level) {
+    private void saveProgress(int userId, BrailleExercise exercise, int level, int counterHit, int counterMiss, int seconds) {
 
         try {
             Dao userDao = getHelper().getUserDao();
             Dao userLevelDao = getHelper().getUserLevelDao();
 
+            //Save the progress of the current level
             User currentUser = (User)userDao.queryForId(userId);
 
             UserLevel userLevel = new UserLevel();
@@ -139,6 +140,19 @@ public class ExerciseActivity extends LouisActivity implements
             userLevel.setLevel(level);
             userLevelDao.createOrUpdate(userLevel);
 
+            //and save statistics
+            Dao statisticsDao = getHelper().getStatisticDao();
+            Statistic stat = new Statistic();
+            stat.setUser(currentUser);
+            stat.setActive(true);
+            stat.setDate(new java.sql.Date(new DateTime().getMillis()));
+            stat.setHits(counterHit);
+            stat.setMisses(counterMiss);
+            stat.setLevel(level);
+            stat.setTimeElapsed(seconds);
+            stat.setExcersise(exercise.getExerciseType().toString());
+
+            statisticsDao.create(stat);
 
         } catch (SQLException e) {
             Log.e(Globals.TAG, e.getMessage(), e);

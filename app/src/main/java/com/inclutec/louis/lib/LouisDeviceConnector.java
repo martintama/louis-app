@@ -193,8 +193,8 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
     }
 
     private void writeToAllLogs(String data){
-        Toast aToast = Toast.makeText(context, data, Toast.LENGTH_LONG);
-        aToast.show();
+        //Toast aToast = Toast.makeText(context, data, Toast.LENGTH_LONG);
+        //aToast.show();
 
         Log.i(TAG, data);
         if (mLogListener != null){
