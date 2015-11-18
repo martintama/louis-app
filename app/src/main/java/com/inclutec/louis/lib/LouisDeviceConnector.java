@@ -35,7 +35,6 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
 
     public LouisDeviceConnector(){
 
-
     }
 
     public void setArduinoListener(SerialInputOutputManager.Listener aListener){

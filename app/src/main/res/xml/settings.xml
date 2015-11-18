@@ -10,6 +10,7 @@
         </SwitchPreference>
         <ListPreference android:title="@string/preference_answer_timeout"
             android:entries="@array/PreferenceAnswerTimeoutItems"
+            android:key="@string/preference_answer_timeout"
             android:entryValues="@array/PreferenceAnswerTimeoutValues"
             android:dialogTitle="Seleccione">
         </ListPreference>

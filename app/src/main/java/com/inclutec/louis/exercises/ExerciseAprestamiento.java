@@ -47,16 +47,16 @@ public class ExerciseAprestamiento implements BrailleExercise {
                     nextChar = "6";
                     break;
                 case 7:
-                    nextChar = "14";
+                    nextChar = "7";
                     break;
                 case 8:
-                    nextChar = "25";
+                    nextChar = "8";
                     break;
                 case 9:
-                    nextChar = "36";
+                    nextChar = "9";
                     break;
                 case 10:
-                    nextChar = "123456";
+                    nextChar = "A";
                     break;
                 default:
                     nextChar = "0";

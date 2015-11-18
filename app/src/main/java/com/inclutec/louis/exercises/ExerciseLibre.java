@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class ExerciseLibre implements BrailleExercise {
 
-    String universe = "abcdefghijklmnñopqrstuvwxyzáéíóúü!?#";
+    String universe = "abcdefghijklmnñopqrstuvwxyz!?#";
 
     @Override
     public void initializeExercise() {

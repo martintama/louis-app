@@ -15,7 +15,7 @@ import com.inclutec.louis.R;
 /**
  * Created by martin on 9/23/15.
  */
-public class SettingsFragment extends android.preference.PreferenceFragment {
+public class SettingsFragment extends android.preference.PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +27,6 @@ public class SettingsFragment extends android.preference.PreferenceFragment {
         for(int i=0;i<getPreferenceScreen().getPreferenceCount();i++){
             initSummary(getPreferenceScreen().getPreference(i));
         }
-
 
     }
 
@@ -42,6 +41,19 @@ public class SettingsFragment extends android.preference.PreferenceFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+    }
+
+    @Override
+    public void onPause() {
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
+    }
+
     private void updatePrefSummary(Preference p){
         if (p instanceof ListPreference) {
             ListPreference listPref = (ListPreference) p;
@@ -54,5 +66,10 @@ public class SettingsFragment extends android.preference.PreferenceFragment {
             p.setSummary(editTextPref.getText());
         }
 
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        updatePrefSummary(findPreference(key));
     }
 }
