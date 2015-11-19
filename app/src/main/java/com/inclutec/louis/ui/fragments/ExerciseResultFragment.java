@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.inclutec.louis.R;
 
@@ -42,6 +43,8 @@ public class ExerciseResultFragment extends Fragment {
 
 
         inflatedView.findViewById(R.id.btnFinish).setOnClickListener(new ExerciseFinishButtonClickListener());
+        inflatedView.findViewById(R.id.btnNext).setOnClickListener(new ExerciseFinishButtonClickListener());
+        inflatedView.findViewById(R.id.btnRepeat).setOnClickListener(new ExerciseFinishButtonClickListener());
 
         loadResults();
 
@@ -99,7 +102,15 @@ public class ExerciseResultFragment extends Fragment {
         //If the user had some error
         if (counterMiss > 1){
             Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
-            nextButton.setVisibility(View.INVISIBLE);
+            nextButton.setEnabled(false);
+
+            nextButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast aToast = Toast.makeText(getActivity(), "Para pasar al próximo nivel no debes tener errores", Toast.LENGTH_LONG);
+                    aToast.show();;
+                }
+            });
         }
     }
 

@@ -11,15 +11,19 @@ import android.widget.TextView;
 
 import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
+import com.inclutec.louis.db.models.User;
+import com.inclutec.louis.db.models.UserLevel;
 import com.inclutec.louis.exercises.ExerciseType;
 import com.inclutec.louis.interfaces.BrailleExercise;
 import com.inclutec.louis.lib.BrailleCellImageHandler;
 import com.inclutec.louis.lib.BrailleExerciseManager;
+import com.j256.ormlite.dao.Dao;
 
 public class ExercisePreFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private BrailleExercise brailleExercise;
+    private int exerciseLevel = 1;
 
     public ExercisePreFragment() {
         // Required empty public constructor
@@ -50,6 +54,7 @@ public class ExercisePreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
+                    //The level is extracted in the other activity
                     mListener.onExerciseStart(brailleExercise);
                 }
             }
@@ -89,4 +94,6 @@ public class ExercisePreFragment extends Fragment {
         description.setText(brailleExercise.getExerciseDescription());
 
     }
+
+
 }

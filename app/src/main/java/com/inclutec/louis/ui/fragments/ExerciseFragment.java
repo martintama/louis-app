@@ -72,7 +72,7 @@ public class ExerciseFragment extends Fragment {
         this.loadPreferences();
         Bundle bundle = getArguments();
         selectedType = (ExerciseType) bundle.get("type");
-        userLevel = bundle.getInt("level");
+        userLevel = bundle.getInt("level",1);
 
         brailleCellImageHandler = new BrailleCellImageHandler(getActivity());
         brailleManager = ((LouisApplication)getActivity().getApplication()).getBrailleExerciseManager();

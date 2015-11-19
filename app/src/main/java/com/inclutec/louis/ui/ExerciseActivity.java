@@ -20,10 +20,13 @@ import com.inclutec.louis.ui.fragments.ExerciseFragment;
 import com.inclutec.louis.ui.fragments.ExercisePreFragment;
 import com.inclutec.louis.ui.fragments.ExerciseResultFragment;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 
 import org.joda.time.DateTime;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ExerciseActivity extends LouisActivity implements
         ExercisePreFragment.OnFragmentInteractionListener,
@@ -92,11 +95,13 @@ public class ExerciseActivity extends LouisActivity implements
         // Create a new Fragment to be placed in the activity layout
         ExerciseFragment nextFragment = new ExerciseFragment();
 
-        Bundle savedInstanceState = new Bundle();
+        //Bundle savedInstanceState = new Bundle();
 
-        savedInstanceState.putSerializable("selectedType", type.getExerciseType());
+        //savedInstanceState.putSerializable("selectedType", type.getExerciseType());
 
-        nextFragment.setArguments(getIntent().getExtras());
+        Bundle extras = getIntent().getExtras();
+        extras.putInt("level", getCurrentExerciseLevel());
+        nextFragment.setArguments(extras);
         nextFragment.setListener(this);
 
         // Add the fragment to the 'fragment_container' FrameLayout
@@ -120,6 +125,7 @@ public class ExerciseActivity extends LouisActivity implements
         args.putInt("level", level);
         nextFragment.setArguments(args);
 
+        nextFragment.setListener(this);
         getFragmentManager().beginTransaction()
                 .replace(R.id.exercise_fragment_container, nextFragment).commit();
 
@@ -172,8 +178,64 @@ public class ExerciseActivity extends LouisActivity implements
 
     @Override
     public void nextLevel() {
+        this.setLevelPassed();
         this.onExerciseStart(selectedExercise);
     }
 
+    public void setLevelPassed() {
+        try {
+            Dao userLevelDao = getHelper().getUserLevelDao();
 
+            UserLevel userLevel = this.getUserLevel();
+            userLevel.setLevel(userLevel.getLevel() +1);
+            userLevelDao.update(userLevel);
+
+        } catch (SQLException e) {
+            Log.e(Globals.TAG, e.getMessage(), e);
+        }
+    }
+
+    public int getCurrentExerciseLevel(){
+        UserLevel userLevel = this.getUserLevel();
+        return userLevel.getLevel();
+    }
+    public UserLevel getUserLevel(){
+        try {
+
+            //save the progress
+            Dao userDao = getHelper().getUserDao();
+            Dao userLevelDao = getHelper().getUserLevelDao();
+
+            //Save the progress of the current level
+            User currentUser = (User)userDao.queryForId(userId);
+
+            QueryBuilder<UserLevel, String> queryBuilder = userLevelDao.queryBuilder();
+
+            Where where = queryBuilder.where();
+            where.and(
+                    where.eq(UserLevel.USER_ID, userId),
+                    where.eq(UserLevel.EXERCISE, selectedExercise.getExerciseType())
+            );
+
+            List<UserLevel> list = userLevelDao.query(queryBuilder.prepare());
+
+            UserLevel userLevel;
+            if (list.isEmpty()){
+                userLevel = new UserLevel();
+                userLevel.setUser(currentUser);
+                userLevel.setExercise(this.selectedExercise.getExerciseType().toString());
+                userLevel.setLevel(level);
+                userLevelDao.create(userLevel);
+            }
+            else{
+                userLevel = list.get(0);
+            }
+
+            return userLevel;
+
+        } catch (SQLException e) {
+            Log.e(Globals.TAG, e.getMessage(), e);
+            return null;
+        }
+    }
 }
