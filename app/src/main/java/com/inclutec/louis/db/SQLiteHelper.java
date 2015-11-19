@@ -297,7 +297,7 @@ public class SQLiteHelper extends OrmLiteSqliteOpenHelper {
                                     " cast(cast(cast(qty_miss as float) / cast(qty_ok + qty_miss as float) as float)*100 as int) " +
                                     " from character_statistics where user_id = " + userId +
                                     " and active = 1" +
-                                    " order by qty_miss / (qty_ok + qty_miss) desc, qty_miss desc, character " +
+                                    " order by cast(cast(cast(qty_miss as float) / cast(qty_ok + qty_miss as float) as float)*100 as int) desc, qty_miss desc, character " +
                                     " limit 10");
 
             List<String[]> results = rawResults.getResults();

@@ -137,36 +137,41 @@ public class StatsActivity extends LouisActivity {
 
         List<String[]> resultList = getHelper().getMostMissedCharacters(this.userId);
 
-        int counter = 0;
+        int counter = 1;
         if (resultList != null && resultList.size() > 0){
 
             // Create a TableRow and give it an ID
             TableRow trTitles = new TableRow(this);
-            trTitles.setId(1000+counter);
+            trTitles.setId(100+counter);
             trTitles.setLayoutParams(new TableRow.LayoutParams(
                             TableRow.LayoutParams.MATCH_PARENT,
                             TableRow.LayoutParams.WRAP_CONTENT)
             );
 
+            TextView labelPositionTitle = new TextView(this);
+            labelPositionTitle.setId(150 + counter);
+            labelPositionTitle.setText("Pos.");
+            trTitles.addView(labelPositionTitle);
+
             TextView labelCharTitle = new TextView(this);
-            labelCharTitle.setId(2000 + counter);
+            labelCharTitle.setId(200 + counter);
             labelCharTitle.setText("Letra");
             trTitles.addView(labelCharTitle);
 
             TextView labelMissesTitle = new TextView(this);
-            labelMissesTitle.setId(3000 + counter);
+            labelMissesTitle.setId(250 + counter);
             labelMissesTitle.setText("Errores");
 
             trTitles.addView(labelMissesTitle);
 
             TextView labelTotalsTitle = new TextView(this);
-            labelTotalsTitle.setId(4000 + counter);
+            labelTotalsTitle.setId(300 + counter);
             labelTotalsTitle.setText("Total");
 
             trTitles.addView(labelTotalsTitle);
 
             TextView labelPercentageTitle = new TextView(this);
-            labelPercentageTitle.setId(5000 + counter);
+            labelPercentageTitle.setId(350 + counter);
             labelPercentageTitle.setText("Porcentaje");
 
             trTitles.addView(labelPercentageTitle);
@@ -180,10 +185,16 @@ public class StatsActivity extends LouisActivity {
             for(String[] row : resultList){
                 // Create a TableRow and give it an ID
                 TableRow tr = new TableRow(this);
-                tr.setId(1000+counter);
+                tr.setId(1000 + counter);
                 tr.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
+
+                TextView labelPosition = new TextView(this);
+                labelPosition.setId(1500 + counter);
+                labelPosition.setText(String.valueOf(counter));
+
+                tr.addView(labelPosition);
 
                 TextView labelChar = new TextView(this);
                 labelChar.setId(2000 + counter);
@@ -213,6 +224,7 @@ public class StatsActivity extends LouisActivity {
                 tl.addView(tr, new TableLayout.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.WRAP_CONTENT));
+                counter++;
             }
         }
         else{

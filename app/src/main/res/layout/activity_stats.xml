@@ -44,7 +44,6 @@
             android:layout_height="wrap_content"
             android:columnCount="5"
             android:rowCount="4"
-            android:padding="5dp"
             android:layout_gravity="center_horizontal"
             >
             <TextView
@@ -198,7 +197,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/mostMissedCharacterTable">
+            android:id="@+id/mostMissedCharacterTable"
+            android:stretchColumns="*">
 
         </TableLayout>
 
