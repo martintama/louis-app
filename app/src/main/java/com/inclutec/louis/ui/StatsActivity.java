@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.inclutec.louis.Globals;
@@ -21,6 +23,8 @@ import java.util.List;
 
 public class StatsActivity extends LouisActivity {
 
+    private int userId;
+    private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +33,14 @@ public class StatsActivity extends LouisActivity {
         super.loadToolbar();
 
         setTitle(R.string.title_activity_estadisticas);
+
+
+        SharedPreferences prefs = getSharedPreferences(Globals.PREFS_NAME, MODE_PRIVATE);
+        userId = prefs.getInt(Globals.PREFS_KEY_USER_ID, 0);
+        name = prefs.getString(Globals.PREFS_KEY_USER_NAME, "");
+
         loadStatistics();
+        loadCharacterStatistics();
     }
 
     @Override
@@ -53,22 +64,19 @@ public class StatsActivity extends LouisActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void loadStatistics(){
+    private void loadStatistics() {
         try {
 
-            SharedPreferences prefs = getSharedPreferences(Globals.PREFS_NAME, MODE_PRIVATE);
 
             Dao statsDao = getHelper().getStatisticDao();
 
-            String user_id = String.valueOf(prefs.getInt(Globals.PREFS_KEY_USER_ID, 0));
-            String name = prefs.getString(Globals.PREFS_KEY_USER_NAME, "");
 
             TextView txtName = (TextView) findViewById(R.id.txtName);
             txtName.setText(name);
 
 
             String query = "Select exercise, sum(time_elapsed) time, sum(qty_ok), sum(qty_miss) " +
-                    "from statistics where active = 1 and user_id = " + user_id + " group by exercise order by exercise";
+                    "from statistics where active = 1 and user_id = " + userId + " group by exercise order by exercise";
 
             Log.d(Globals.TAG, String.format("Query is %s", query));
 
@@ -83,10 +91,10 @@ public class StatsActivity extends LouisActivity {
             TextView txtHits = null;
             TextView txtMiss = null;
 
-            for (int i = 0; i<results.size();i++){
+            for (int i = 0; i < results.size(); i++) {
                 String[] fila = results.get(i);
 
-                switch(fila[0].toLowerCase()){
+                switch (fila[0].toLowerCase()) {
                     case "aprestamiento":
                         txtExercise = (TextView) findViewById(R.id.exercise1_title);
                         txtTime = (TextView) findViewById(R.id.exercise1_time);
@@ -117,10 +125,116 @@ public class StatsActivity extends LouisActivity {
             }
 
 
-
         } catch (SQLException e) {
-            Log.e(Globals.TAG, String.format("Error loading statistics: %s", e.getMessage()),e);
+            Log.e(Globals.TAG, String.format("Error loading statistics: %s", e.getMessage()), e);
+        }
+    }
+    private void loadCharacterStatistics(){
+
+        // Get the TableLayout
+        TableLayout tl = (TableLayout) findViewById(R.id.mostMissedCharacterTable);
+        tl.removeAllViews();
+
+        List<String[]> resultList = getHelper().getMostMissedCharacters(this.userId);
+
+        int counter = 0;
+        if (resultList != null && resultList.size() > 0){
+
+            // Create a TableRow and give it an ID
+            TableRow trTitles = new TableRow(this);
+            trTitles.setId(1000+counter);
+            trTitles.setLayoutParams(new TableRow.LayoutParams(
+                            TableRow.LayoutParams.MATCH_PARENT,
+                            TableRow.LayoutParams.WRAP_CONTENT)
+            );
+
+            TextView labelCharTitle = new TextView(this);
+            labelCharTitle.setId(2000 + counter);
+            labelCharTitle.setText("Letra");
+            trTitles.addView(labelCharTitle);
+
+            TextView labelMissesTitle = new TextView(this);
+            labelMissesTitle.setId(3000 + counter);
+            labelMissesTitle.setText("Errores");
+
+            trTitles.addView(labelMissesTitle);
+
+            TextView labelTotalsTitle = new TextView(this);
+            labelTotalsTitle.setId(4000 + counter);
+            labelTotalsTitle.setText("Total");
+
+            trTitles.addView(labelTotalsTitle);
+
+            TextView labelPercentageTitle = new TextView(this);
+            labelPercentageTitle.setId(5000 + counter);
+            labelPercentageTitle.setText("Porcentaje");
+
+            trTitles.addView(labelPercentageTitle);
+
+            // Add the TableRow to the TableLayout
+            tl.addView(trTitles, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+
+
+            for(String[] row : resultList){
+                // Create a TableRow and give it an ID
+                TableRow tr = new TableRow(this);
+                tr.setId(1000+counter);
+                tr.setLayoutParams(new TableRow.LayoutParams(
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
+
+                TextView labelChar = new TextView(this);
+                labelChar.setId(2000 + counter);
+                labelChar.setText(row[0]);
+
+                tr.addView(labelChar);
+
+                TextView labelMisses = new TextView(this);
+                labelMisses.setId(3000 + counter);
+                labelMisses.setText(row[1]);
+
+                tr.addView(labelMisses);
+
+                TextView labelTotal = new TextView(this);
+                labelTotal.setId(4000 + counter);
+                labelTotal.setText(row[2]);
+
+                tr.addView(labelTotal);
+
+                TextView labelPercentage = new TextView(this);
+                labelPercentage.setId(5000 + counter);
+                labelPercentage.setText(row[3] + "%");
+
+                tr.addView(labelPercentage);
+
+                // Add the TableRow to the TableLayout
+                tl.addView(tr, new TableLayout.LayoutParams(
+                        TableRow.LayoutParams.MATCH_PARENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
+            }
+        }
+        else{
+            // Create a TableRow and give it an ID
+            TableRow tr = new TableRow(this);
+            tr.setId(1000 + counter);
+            tr.setLayoutParams(new TableRow.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+
+            TextView labelChar = new TextView(this);
+            labelChar.setId(1000 + counter);
+            labelChar.setText("No se han encotrado suficientes datos");
+
+            tr.addView(labelChar);
+
+            // Add the TableRow to the TableLayout
+            tl.addView(tr, new TableLayout.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
         }
 
     }
+
 }

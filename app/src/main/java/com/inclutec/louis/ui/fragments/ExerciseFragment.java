@@ -131,12 +131,18 @@ public class ExerciseFragment extends Fragment {
                         break;
                     case R.id.btnThumbsUp:
                         counterHit += 1;
+                        if (mListener != null){
+                            mListener.onCharacterHit(lastChar);
+                        }
                         stopTimer();
                         loadNextChar();
                         break;
 
                     case R.id.btnThumbsDown:
                         counterMiss += 1;
+                        if (mListener != null){
+                            mListener.onCharacterMiss(lastChar);
+                        }
                         stopTimer();
                         loadNextChar();
                         break;
@@ -266,6 +272,10 @@ public class ExerciseFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
+
+        void onCharacterHit(String character);
+
+        void onCharacterMiss(String character);
 
         // TODO: Update argument type and name
         void onExerciseFinish(ExerciseType type, int level, int counterHit, int counterMiss, int seconds);

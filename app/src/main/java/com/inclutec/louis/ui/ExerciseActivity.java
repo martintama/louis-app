@@ -100,7 +100,7 @@ public class ExerciseActivity extends LouisActivity implements
         //savedInstanceState.putSerializable("selectedType", type.getExerciseType());
 
         Bundle extras = getIntent().getExtras();
-        extras.putInt("level", getCurrentExerciseLevel());
+        extras.putInt("level", getHelper().getCurrentExerciseLevel(userId, selectedExercise));
         nextFragment.setArguments(extras);
         nextFragment.setListener(this);
 
@@ -110,10 +110,20 @@ public class ExerciseActivity extends LouisActivity implements
     }
 
     @Override
+    public void onCharacterHit(String character) {
+        getHelper().saveCharacterHit(userId, character);
+    }
+
+    @Override
+    public void onCharacterMiss(String character) {
+        getHelper().saveCharacterMiss(userId, character);
+    }
+
+    @Override
     public void onExerciseFinish(ExerciseType type, int level, int counterHit, int counterMiss, int seconds) {
 
         //Save user progress
-        this.saveProgress(userId, selectedExercise, level, counterHit, counterMiss, seconds);
+        getHelper().saveExerciseProgress(userId, selectedExercise, level, counterHit, counterMiss, seconds);
 
         ExerciseResultFragment nextFragment = new ExerciseResultFragment();
         nextFragment.setListener(this);
@@ -131,41 +141,6 @@ public class ExerciseActivity extends LouisActivity implements
 
     }
 
-    private void saveProgress(int userId, BrailleExercise exercise, int level, int counterHit, int counterMiss, int seconds) {
-
-        try {
-            Dao userDao = getHelper().getUserDao();
-            Dao userLevelDao = getHelper().getUserLevelDao();
-
-            //Save the progress of the current level
-            User currentUser = (User)userDao.queryForId(userId);
-
-            UserLevel userLevel = new UserLevel();
-            userLevel.setUser(currentUser);
-            userLevel.setExercise(exercise.getExerciseType().toString());
-            userLevel.setLevel(level);
-            userLevelDao.createOrUpdate(userLevel);
-
-            //and save statistics
-            Dao statisticsDao = getHelper().getStatisticDao();
-            Statistic stat = new Statistic();
-            stat.setUser(currentUser);
-            stat.setActive(true);
-            stat.setDate(new java.sql.Date(new DateTime().getMillis()));
-            stat.setHits(counterHit);
-            stat.setMisses(counterMiss);
-            stat.setLevel(level);
-            stat.setTimeElapsed(seconds);
-            stat.setExcersise(exercise.getExerciseType().toString());
-
-            statisticsDao.create(stat);
-
-        } catch (SQLException e) {
-            Log.e(Globals.TAG, e.getMessage(), e);
-        }
-
-    }
-
     @Override
     public void finishLevel() {
         this.finish();
@@ -178,64 +153,11 @@ public class ExerciseActivity extends LouisActivity implements
 
     @Override
     public void nextLevel() {
-        this.setLevelPassed();
+        getHelper().setLevelPassed(userId, selectedExercise);
         this.onExerciseStart(selectedExercise);
     }
 
-    public void setLevelPassed() {
-        try {
-            Dao userLevelDao = getHelper().getUserLevelDao();
 
-            UserLevel userLevel = this.getUserLevel();
-            userLevel.setLevel(userLevel.getLevel() +1);
-            userLevelDao.update(userLevel);
 
-        } catch (SQLException e) {
-            Log.e(Globals.TAG, e.getMessage(), e);
-        }
-    }
 
-    public int getCurrentExerciseLevel(){
-        UserLevel userLevel = this.getUserLevel();
-        return userLevel.getLevel();
-    }
-    public UserLevel getUserLevel(){
-        try {
-
-            //save the progress
-            Dao userDao = getHelper().getUserDao();
-            Dao userLevelDao = getHelper().getUserLevelDao();
-
-            //Save the progress of the current level
-            User currentUser = (User)userDao.queryForId(userId);
-
-            QueryBuilder<UserLevel, String> queryBuilder = userLevelDao.queryBuilder();
-
-            Where where = queryBuilder.where();
-            where.and(
-                    where.eq(UserLevel.USER_ID, userId),
-                    where.eq(UserLevel.EXERCISE, selectedExercise.getExerciseType())
-            );
-
-            List<UserLevel> list = userLevelDao.query(queryBuilder.prepare());
-
-            UserLevel userLevel;
-            if (list.isEmpty()){
-                userLevel = new UserLevel();
-                userLevel.setUser(currentUser);
-                userLevel.setExercise(this.selectedExercise.getExerciseType().toString());
-                userLevel.setLevel(level);
-                userLevelDao.create(userLevel);
-            }
-            else{
-                userLevel = list.get(0);
-            }
-
-            return userLevel;
-
-        } catch (SQLException e) {
-            Log.e(Globals.TAG, e.getMessage(), e);
-            return null;
-        }
-    }
 }

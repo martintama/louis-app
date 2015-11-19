@@ -15,169 +15,196 @@
         style="@style/HeaderBar"
         app:theme="@style/ActionBarThemeOverlay"
         app:popupTheme="@style/ActionBarPopupThemeOverlay"/>
-
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+                android:src="@drawable/ic_person_black_48dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Nombre usuario"
+                android:id="@+id/txtName"
+                android:layout_gravity="center_vertical" />
+        </LinearLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView2"
-            android:src="@drawable/ic_person_black_48dp"/>
+            android:columnCount="5"
+            android:rowCount="4"
+            android:padding="5dp"
+            android:layout_gravity="center_horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Ejercitación"
+                android:id="@+id/title1"
+                android:width="100dp"
+                android:layout_row="0"
+                android:layout_column="0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Tiempo"
+                android:width="90dp"
+                android:id="@+id/title2"
+                android:layout_row="0"
+                android:layout_column="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Aciertos"
+                android:width="70dp"
+                android:id="@+id/title3"
+                android:layout_row="0"
+                android:layout_column="2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Errores"
+                android:width="70dp"
+                android:id="@+id/title4"
+                android:layout_row="0"
+                android:layout_column="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Apretamiento"
+                android:id="@+id/exercise1_title"
+                android:layout_row="1"
+                android:layout_column="0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise1_time"
+                android:layout_row="1"
+                android:layout_column="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise1_hit"
+                android:layout_row="1"
+                android:layout_column="2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise1_miss"
+                android:layout_row="1"
+                android:layout_column="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Abecedario"
+                android:id="@+id/exercise2_title"
+                android:layout_row="2"
+                android:layout_column="0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise2_time"
+                android:layout_row="2"
+                android:layout_column="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise2_hit"
+                android:layout_row="2"
+                android:layout_column="2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise2_miss"
+                android:layout_row="2"
+                android:layout_column="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Abecedario"
+                android:id="@+id/exercise3_title"
+                android:layout_row="3"
+                android:layout_column="0" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise3_time"
+                android:layout_row="3"
+                android:layout_column="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise3_hit"
+                android:layout_row="3"
+                android:layout_column="2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="0"
+                android:id="@+id/exercise3_miss"
+                android:layout_row="3"
+                android:layout_column="3" />
+
+        </GridLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Nombre usuario"
-            android:id="@+id/txtName"
-            android:layout_gravity="center_vertical" />
+            android:text="Las 10 letras con más errores"
+            android:id="@+id/characterStatsTitle"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"/>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/mostMissedCharacterTable">
+
+        </TableLayout>
+
+
     </LinearLayout>
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="5"
-        android:rowCount="4"
-        android:padding="5dp"
-        android:layout_gravity="center_horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Ejercitación"
-            android:id="@+id/title1"
-            android:width="100dp"
-            android:layout_row="0"
-            android:layout_column="0" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Tiempo"
-            android:width="90dp"
-            android:id="@+id/title2"
-            android:layout_row="0"
-            android:layout_column="1" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Aciertos"
-            android:width="70dp"
-            android:id="@+id/title3"
-            android:layout_row="0"
-            android:layout_column="2" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Errores"
-            android:width="70dp"
-            android:id="@+id/title4"
-            android:layout_row="0"
-            android:layout_column="3" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Apretamiento"
-            android:id="@+id/exercise1_title"
-            android:layout_row="1"
-            android:layout_column="0" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise1_time"
-            android:layout_row="1"
-            android:layout_column="1" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise1_hit"
-            android:layout_row="1"
-            android:layout_column="2" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise1_miss"
-            android:layout_row="1"
-            android:layout_column="3" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Abecedario"
-            android:id="@+id/exercise2_title"
-            android:layout_row="2"
-            android:layout_column="0" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise2_time"
-            android:layout_row="2"
-            android:layout_column="1" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise2_hit"
-            android:layout_row="2"
-            android:layout_column="2" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise2_miss"
-            android:layout_row="2"
-            android:layout_column="3" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Abecedario"
-            android:id="@+id/exercise3_title"
-            android:layout_row="3"
-            android:layout_column="0" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise3_time"
-            android:layout_row="3"
-            android:layout_column="1" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise3_hit"
-            android:layout_row="3"
-            android:layout_column="2" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0"
-            android:id="@+id/exercise3_miss"
-            android:layout_row="3"
-            android:layout_column="3" />
-
-    </GridLayout>
 
 
 </LinearLayout>
