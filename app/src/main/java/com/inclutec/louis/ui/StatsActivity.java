@@ -97,6 +97,7 @@ public class StatsActivity extends LouisActivity {
                 switch (fila[0].toLowerCase()) {
                     case "aprestamiento":
                         txtExercise = (TextView) findViewById(R.id.exercise1_title);
+                        txtExercise.setText("Aprestamiento");
                         txtTime = (TextView) findViewById(R.id.exercise1_time);
                         txtHits = (TextView) findViewById(R.id.exercise1_hit);
                         txtMiss = (TextView) findViewById(R.id.exercise1_miss);
@@ -104,6 +105,7 @@ public class StatsActivity extends LouisActivity {
                         break;
                     case "abecedario":
                         txtExercise = (TextView) findViewById(R.id.exercise2_title);
+                        txtExercise.setText("Abecedario");
                         txtTime = (TextView) findViewById(R.id.exercise2_time);
                         txtHits = (TextView) findViewById(R.id.exercise2_hit);
                         txtMiss = (TextView) findViewById(R.id.exercise2_miss);
@@ -111,6 +113,7 @@ public class StatsActivity extends LouisActivity {
                         break;
                     case "libre":
                         txtExercise = (TextView) findViewById(R.id.exercise3_title);
+                        txtExercise.setText("Libre");
                         txtTime = (TextView) findViewById(R.id.exercise3_time);
                         txtHits = (TextView) findViewById(R.id.exercise3_hit);
                         txtMiss = (TextView) findViewById(R.id.exercise3_miss);
@@ -118,7 +121,7 @@ public class StatsActivity extends LouisActivity {
                         break;
 
                 }
-                txtExercise.setText(fila[0]);
+
                 txtTime.setText(fila[1]);
                 txtHits.setText(fila[2]);
                 txtMiss.setText(fila[3]);

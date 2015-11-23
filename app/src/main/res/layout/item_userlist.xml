@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Name"
-        android:height="72dp"
+        android:height="42dp"
         android:id="@+id/txtUsername"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:gravity="left|center" />
 </LinearLayout>

@@ -97,6 +97,7 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
         int errorCode = 0;
 
         if (mUseSerialDriver != null) {
+            this.write("B"); //move all the pins down
             try {
                 mUseSerialDriver.close();
                 writeToAllLogs("Disconnected");
@@ -130,6 +131,22 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
 
         int errorCode = 0;
 
+        //transform character
+        switch(data){
+            case "14":
+                data = "7";
+                break;
+            case "25":
+                data = "8";
+                break;
+            case "36":
+                data = "9";
+                break;
+            case "123456":
+                data = "A";
+                break;
+        }
+        //if not any of those, dont transform
         byte[] dataToSend = data.getBytes();
         //send the color to the serial device
 
@@ -139,6 +156,7 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
                 writeToAllLogs(String.format("Sent [%s] to device", data));
             }
             catch (IOException e){
+                writeToAllLogs(e.getMessage());
                 writeToAllLogs("couldn't write bytes to serial device");
 
                 errorCode = -1;
@@ -192,8 +210,8 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
     }
 
     private void writeToAllLogs(String data){
-        //Toast aToast = Toast.makeText(context, data, Toast.LENGTH_LONG);
-        //aToast.show();
+        Toast aToast = Toast.makeText(context, data, Toast.LENGTH_LONG);
+        aToast.show();
 
         Log.i(TAG, data);
         if (mLogListener != null){

@@ -33,6 +33,23 @@ public class LouisDeviceMock implements ArduinoDeviceConnector {
 
     @Override
     public int write(String data) {
+
+        //transform character
+        switch(data){
+            case "14":
+                data = "7";
+                break;
+            case "25":
+                data = "8";
+                break;
+            case "36":
+                data = "9";
+                break;
+            case "123456":
+                data = "A";
+                break;
+        }
+
         String message = String.format("Sent %s to device", data);
         Toast aToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         aToast.show();

@@ -133,6 +133,7 @@ public class ExerciseActivity extends LouisActivity implements
         args.putInt("seconds", seconds);
         args.putString("userName", userName);
         args.putInt("level", level);
+        args.putSerializable("type", selectedExercise.getExerciseType());
         nextFragment.setArguments(args);
 
         nextFragment.setListener(this);

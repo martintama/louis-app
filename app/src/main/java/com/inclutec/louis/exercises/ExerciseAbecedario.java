@@ -9,7 +9,8 @@ import com.inclutec.louis.interfaces.BrailleExercise;
 public class ExerciseAbecedario implements BrailleExercise {
 
     private int SEQ_START=7;
-    private int MAX_LEVEL=26;
+    //private int MAX_LEVEL=26;
+    private int MAX_LEVEL=19;
 
     private int level;
     private int nextCharIndex = 1;
@@ -18,7 +19,8 @@ public class ExerciseAbecedario implements BrailleExercise {
     private int studiedLevelProgress = 1;
 
     public ExerciseAbecedario(){
-        sequence = "abclgmproetsunqivjdyñkháxíwfózúüé";
+        //sequence = "abclgmproetsunqivjdyñkháxíwfózúüé";
+        sequence = "abclgmproetsunqivjdykhxwfz";
     }
 
     @Override

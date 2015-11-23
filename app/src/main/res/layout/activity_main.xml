@@ -38,8 +38,8 @@
             />
 
         <ImageButton
-            android:layout_width="170dp"
-            android:layout_height="109dp"
+            android:layout_width="140dp"
+            android:layout_height="80dp"
             android:id="@+id/btnAbecedario"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/placeholder"
@@ -59,8 +59,8 @@
 
 
         <ImageButton
-            android:layout_width="170dp"
-            android:layout_height="109dp"
+            android:layout_width="140dp"
+            android:layout_height="80dp"
             android:id="@+id/btnAprestamiento"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/placeholder"
@@ -79,8 +79,8 @@
             />
 
         <ImageButton
-            android:layout_width="170dp"
-            android:layout_height="109dp"
+            android:layout_width="140dp"
+            android:layout_height="80dp"
             android:id="@+id/btnLibre"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/placeholder"

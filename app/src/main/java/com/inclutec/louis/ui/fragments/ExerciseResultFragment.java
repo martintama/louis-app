@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inclutec.louis.R;
+import com.inclutec.louis.exercises.ExerciseType;
 
 public class ExerciseResultFragment extends Fragment {
 
@@ -24,6 +25,7 @@ public class ExerciseResultFragment extends Fragment {
     private int counterHit = 0;
     private int counterMiss = 0;
     private int level = 0;
+    private ExerciseType exerciseType;
 
     public ExerciseResultFragment() {
         // Required empty public constructor
@@ -85,7 +87,7 @@ public class ExerciseResultFragment extends Fragment {
         counterMiss = bundle.getInt("counterMiss");
         seconds = bundle.getInt("seconds");
         level = bundle.getInt("level");
-
+        ExerciseType selectedType = (ExerciseType) bundle.getSerializable("type");
 
         TextView txtThumbsUpCounter = (TextView) inflatedView.findViewById(R.id.txtThumbsUpCounter);
         TextView txtThumbsDownCounter = (TextView) inflatedView.findViewById(R.id.txtThumbsDownCounter);
@@ -100,7 +102,7 @@ public class ExerciseResultFragment extends Fragment {
         txtLevel.setText(String.valueOf(level));
 
         //If the user had some error
-        if (counterMiss > 1){
+        if (selectedType == ExerciseType.ABECEDARIO || selectedType == ExerciseType.LIBRE || counterMiss > 1){
             Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
             nextButton.setEnabled(false);
 
@@ -111,6 +113,20 @@ public class ExerciseResultFragment extends Fragment {
                     aToast.show();;
                 }
             });
+        }
+
+        if (selectedType == ExerciseType.ABECEDARIO || selectedType == ExerciseType.LIBRE){
+            Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
+            nextButton.setVisibility(View.INVISIBLE);
+
+            Button repeatButton = (Button) inflatedView.findViewById(R.id.btnRepeat);
+            repeatButton.setVisibility(View.INVISIBLE);
+        }else{
+            Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
+            nextButton.setVisibility(View.VISIBLE);
+
+            Button repeatButton = (Button) inflatedView.findViewById(R.id.btnRepeat);
+            repeatButton.setVisibility(View.VISIBLE);
         }
     }
 
