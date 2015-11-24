@@ -156,10 +156,18 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
                 writeToAllLogs(String.format("Sent [%s] to device", data));
             }
             catch (IOException e){
-                writeToAllLogs(e.getMessage());
-                writeToAllLogs("couldn't write bytes to serial device");
+                try {
+                    Thread.sleep(1500);
+                    mUseSerialDriver.write(dataToSend, dataToSend.length);
+                }
+                catch(IOException e2){
+                    writeToAllLogs(e2.getMessage());
+                    writeToAllLogs("couldn't write bytes to serial device");
 
-                errorCode = -1;
+                    errorCode = -1;
+                } catch (InterruptedException e1) {
+                    writeToAllLogs(e1.getMessage());
+                }
             }
         } else {
             writeToAllLogs("device is null");
@@ -210,8 +218,8 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
     }
 
     private void writeToAllLogs(String data){
-        Toast aToast = Toast.makeText(context, data, Toast.LENGTH_LONG);
-        aToast.show();
+        //Toast aToast = Toast.makeText(context, data, Toast.LENGTH_LONG);
+        //aToast.show();
 
         Log.i(TAG, data);
         if (mLogListener != null){

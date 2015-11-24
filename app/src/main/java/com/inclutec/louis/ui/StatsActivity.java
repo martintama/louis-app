@@ -122,7 +122,10 @@ public class StatsActivity extends LouisActivity {
 
                 }
 
-                txtTime.setText(fila[1]);
+                int minutes = Integer.parseInt(fila[1]) / 60;
+                int seconds = Integer.parseInt(fila[1]) - minutes*60;
+
+                txtTime.setText(String.format("%02d:%02d", minutes, seconds));
                 txtHits.setText(fila[2]);
                 txtMiss.setText(fila[3]);
             }

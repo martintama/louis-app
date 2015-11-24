@@ -101,8 +101,9 @@ public class ExerciseResultFragment extends Fragment {
         txtTime.setText(String.valueOf(seconds));
         txtLevel.setText(String.valueOf(level));
 
-        //If the user had some error
-        if (selectedType == ExerciseType.ABECEDARIO || selectedType == ExerciseType.LIBRE || counterMiss > 1){
+        int totalChars = counterMiss + counterHit;
+        //If the user had some error or did not complete the level
+        if (selectedType == ExerciseType.ABECEDARIO && counterMiss > 1 && totalChars < level + 7){
             Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
             nextButton.setEnabled(false);
 
@@ -115,12 +116,12 @@ public class ExerciseResultFragment extends Fragment {
             });
         }
 
-        if (selectedType == ExerciseType.ABECEDARIO || selectedType == ExerciseType.LIBRE){
+        if (selectedType == ExerciseType.APRESTAMIENTO || selectedType == ExerciseType.LIBRE){
             Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
-            nextButton.setVisibility(View.INVISIBLE);
+            nextButton.setVisibility(View.GONE);
 
             Button repeatButton = (Button) inflatedView.findViewById(R.id.btnRepeat);
-            repeatButton.setVisibility(View.INVISIBLE);
+            repeatButton.setVisibility(View.GONE);
         }else{
             Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
             nextButton.setVisibility(View.VISIBLE);

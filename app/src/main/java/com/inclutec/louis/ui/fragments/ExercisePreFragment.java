@@ -1,14 +1,20 @@
 package com.inclutec.louis.ui.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.inclutec.louis.Globals;
+import com.inclutec.louis.LouisActivity;
 import com.inclutec.louis.LouisApplication;
 import com.inclutec.louis.R;
 import com.inclutec.louis.db.models.User;
@@ -23,7 +29,10 @@ public class ExercisePreFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private BrailleExercise brailleExercise;
+
     private int exerciseLevel = 1;
+
+    View inflatedView = null;
 
     public ExercisePreFragment() {
         // Required empty public constructor
@@ -47,7 +56,7 @@ public class ExercisePreFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View inflatedView = inflater.inflate(R.layout.fragment_exercise_pre, container, false);
+        inflatedView = inflater.inflate(R.layout.fragment_exercise_pre, container, false);
 
         Button btnStart = (Button) inflatedView.findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {
@@ -64,10 +73,38 @@ public class ExercisePreFragment extends Fragment {
             mListener.onExerciseLoad(brailleExercise);
         }
 
+        loadLevels(brailleExercise);
         loadExerciseDescription(inflatedView);
 
         // Inflate the layout for this fragment
         return inflatedView;
+    }
+
+    private void loadLevels(BrailleExercise brailleExercise) {
+
+
+
+        View levelRow = inflatedView.findViewById(R.id.levelSelectorRow);
+        if (brailleExercise.getExerciseType() == ExerciseType.ABECEDARIO){
+
+            SharedPreferences prefs = getActivity().getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
+            Integer userId = prefs.getInt(Globals.PREFS_KEY_USER_ID, 0);
+
+            Integer currentLevel = ((LouisActivity)getActivity()).getHelper().getCurrentExerciseLevel(userId, brailleExercise);
+
+            String[] levels= {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26"};
+            ArrayAdapter<String> adapter_state = new ArrayAdapter<String>(getActivity(),  android.R.layout.simple_spinner_item, levels);
+
+            Spinner levelSelector = (Spinner)inflatedView.findViewById(R.id.levelSelector);
+            levelSelector.setAdapter(adapter_state);
+            levelSelector.setSelection(adapter_state.getPosition(String.valueOf(currentLevel)));
+
+            levelRow.setVisibility(View.VISIBLE);
+        }
+        else{
+
+            levelRow.setVisibility(View.GONE);
+        }
     }
 
     @Override

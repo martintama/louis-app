@@ -1,6 +1,7 @@
 package com.inclutec.louis.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.inclutec.louis.Globals;
 import com.inclutec.louis.R;
 import com.inclutec.louis.db.models.User;
 
@@ -43,8 +45,10 @@ public class UserListDataAdapter extends CursorAdapter {
 
         theContext = context;
 
-        // Set data into the view.
-        //ImageView ivItem = (ImageView) rowView.findViewById(R.id.user_picture);
+        SharedPreferences prefs = context.getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
+        Integer currentUserId = prefs.getInt(Globals.PREFS_KEY_USER_ID, 0);
+
+
         TextView tvUsername = (TextView) view.findViewById(R.id.txtUsername);
 
         Bundle userBundle = new Bundle();
@@ -52,8 +56,11 @@ public class UserListDataAdapter extends CursorAdapter {
         userBundle.putString("name", cursor.getString(1));
         view.setTag(userBundle);
 
-        tvUsername.setText(cursor.getString(1));
-
-
+        if (currentUserId == cursor.getInt(0)){
+            tvUsername.setText(cursor.getString(1) + " (Actual)");
+        }
+        else {
+            tvUsername.setText(cursor.getString(1));
+        }
     }
 }

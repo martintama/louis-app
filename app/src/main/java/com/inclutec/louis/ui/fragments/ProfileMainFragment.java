@@ -91,8 +91,8 @@ public class ProfileMainFragment extends Fragment {
                 int user_id = data.getInt("user_id");
                 String name = data.getString("name");
 
-                Toast theToast = Toast.makeText(getActivity(),
-                        String.format("Setting user %s of id %s", name, user_id), Toast.LENGTH_LONG);
+//                Toast theToast = Toast.makeText(getActivity(),
+//                        String.format("Setting user %s of id %s", name, user_id), Toast.LENGTH_LONG);
 
                 SharedPreferences prefs = getActivity().getSharedPreferences(Globals.PREFS_NAME, Context.MODE_PRIVATE);
                 SharedPreferences.Editor edit = prefs.edit();
@@ -100,7 +100,9 @@ public class ProfileMainFragment extends Fragment {
                 edit.putString(Globals.PREFS_KEY_USER_NAME, name);
                 edit.commit();
 
-                theToast.show();
+                loadUserList();
+
+                //theToast.show();
 
             }
         });

@@ -4,7 +4,7 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" android:visible="false" app:showAsAction="never" />
     <item android:id="@+id/action_export" android:title="Export DB"
-        android:orderInCategory="99" android:visible="true" />
+        android:orderInCategory="99" android:visible="false" />
     <item android:id="@+id/action_connect" android:title="Connect"
         android:orderInCategory="98" android:visible="true"/>
     <item android:id="@+id/action_disconnect" android:title="Disconnect"
