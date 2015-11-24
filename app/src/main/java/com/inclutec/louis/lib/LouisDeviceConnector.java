@@ -145,6 +145,27 @@ public class LouisDeviceConnector implements ArduinoDeviceConnector {
             case "123456":
                 data = "A";
                 break;
+            case "á":
+                data = "Z";
+                break;
+            case "é":
+                data = "Y";
+                break;
+            case "í":
+                data = "X";
+                break;
+            case "ó":
+                data = "W";
+                break;
+            case "ú":
+                data = "V";
+                break;
+            case "ü":
+                data = "U";
+                break;
+            case "ñ":
+                data = "T";
+                break;
         }
         //if not any of those, dont transform
         byte[] dataToSend = data.getBytes();

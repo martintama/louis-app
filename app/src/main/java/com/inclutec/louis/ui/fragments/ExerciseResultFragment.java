@@ -103,7 +103,7 @@ public class ExerciseResultFragment extends Fragment {
 
         int totalChars = counterMiss + counterHit;
         //If the user had some error or did not complete the level
-        if (selectedType == ExerciseType.ABECEDARIO && counterMiss > 1 && totalChars < level + 7){
+        if (selectedType == ExerciseType.ABECEDARIO && (counterMiss > 0 || totalChars < level + 5)){
             Button nextButton = (Button) inflatedView.findViewById(R.id.btnNext);
             nextButton.setEnabled(false);
 
